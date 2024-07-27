@@ -203,5 +203,17 @@ export const projects: Project[] = [
         url: "https://glenn.me",
         img: "/glenn.png",
         category: "Vercel"
+    },
+    {
+        name: "Michelle Gore",
+        url: "https://michellegore.com",
+        img: "/michelle.png",
+        category: "Apple"
+    },
+    {
+        name: "kellyhu",
+        url: "https://kellyhu.me",
+        img: "/kelly.png",
+        category: "Spotify"
     }
 ]
