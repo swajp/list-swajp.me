@@ -40,11 +40,18 @@ export const projects: Project[] = [
         category: "Vercel"
     },
     {
-        name: "shadcn.com",
+        name: "shadcn",
         url: "https://www.mmcs.dev",
         img: "/shadcn.png",
 
         category: "Vercel"
+    },
+    {
+        name: "Adrian Z",
+        url: "https://azumbrunnen.me",
+        img: "/adrian.png",
+
+        category: "Apple"
     },
     {
         name: "Andy Bitz",
@@ -82,6 +89,12 @@ export const projects: Project[] = [
         url: " https://nicholasyang.com",
         img: "/nicholas.png",
         category: "Vercel"
+    },
+    {
+        name: "Erik Jonsson",
+        url: "https://erikjonsson.se",
+        img: "/erik.png",
+        category: "Apple"
     },
     {
         name: "Guillermo Rauch",
@@ -124,6 +137,12 @@ export const projects: Project[] = [
         url: "https://www.shew.dev",
         img: "/anthony.png",
         category: "Vercel"
+    },
+    {
+        name: "John Costello",
+        url: "https://johncostello.design",
+        img: "/johnc.png",
+        category: "Apple"
     },
     {
         name: "Shu Ding",
