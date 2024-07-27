@@ -66,7 +66,6 @@ export default function HomePage() {
                 {projects.map(project => (
                     <Link target="_blank" href={project.url} key={project.name} className="relative border rounded-lg">
                         <Image
-                            unoptimized
                             className="rounded-lg"
                             quality={100}
                             src={project.img}
