@@ -204,7 +204,9 @@ export default function HomePage({ searchParams }: { searchParams?: { [key: stri
                         }
                         key={category.name}
                         className={buttonVariants({
-                            className: "!rounded-full gap-1 px-1.5",
+                            className: `!rounded-full gap-1 px-1.5 ${
+                                searchParams?.category === category.name ? "border" : ""
+                            }`,
                             variant: "ghost"
                         })}
                     >
