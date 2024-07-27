@@ -91,6 +91,12 @@ export const projects: Project[] = [
         category: "Vercel"
     },
     {
+        name: "Evil Rabbit",
+        url: "https://evilrabb.it",
+        img: "/evil.png",
+        category: "Vercel"
+    },
+    {
         name: "Erik Jonsson",
         url: "https://erikjonsson.se",
         img: "/erik.png",
@@ -100,6 +106,12 @@ export const projects: Project[] = [
         name: "Guillermo Rauch",
         url: "https://rauchg.com",
         img: "/guillermo.png",
+        category: "Vercel"
+    },
+    {
+        name: "jhey",
+        url: "https://jhey.dev",
+        img: "/jhey.png",
         category: "Vercel"
     },
     {
