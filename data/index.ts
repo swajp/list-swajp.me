@@ -103,6 +103,12 @@ export const projects: Project[] = [
         category: "Apple"
     },
     {
+        name: "Duaa Zaheer",
+        url: "https://www.duaa.design",
+        img: "/duaa.png",
+        category: "Meta"
+    },
+    {
         name: "Guillermo Rauch",
         url: "https://rauchg.com",
         img: "/guillermo.png",
@@ -215,5 +221,23 @@ export const projects: Project[] = [
         url: "https://kellyhu.me",
         img: "/kelly.png",
         category: "Spotify"
+    },
+    {
+        name: "Ceryl Lao",
+        url: "https://cheryllao.me",
+        img: "/cheryl.png",
+        category: "Meta"
+    },
+    {
+        name: "Abhishek Sharma",
+        url: "https://abhishk.me",
+        img: "/abhishk.png",
+        category: "Meta"
+    },
+    {
+        name: "Abdus Salam",
+        url: "https://abdussalam.pk",
+        img: "/abdussalam.png",
+        category: "Meta"
     }
 ]
