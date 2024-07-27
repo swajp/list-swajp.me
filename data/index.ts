@@ -28,7 +28,7 @@ export const projects: Project[] = [
     },
     {
         name: "Matthew Sweeney",
-        url: "https://www.mmcs.dev",
+        url: "https://www.mcs.dev",
         img: "/uka.png",
         category: "Vercel"
     },
