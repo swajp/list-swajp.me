@@ -8,7 +8,8 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
     title: "swajp - Book of amazing portfolios by amazing people",
     description:
-        "Are you looking for inspiration for your portfolio? You're in the right place! Here you will find a collection of amazing portfolios by amazing people."
+        "Are you looking for inspiration for your portfolio? You're in the right place! Here you will find a collection of amazing portfolios by amazing people.",
+    metadataBase: new URL("https://list.swajp.me")
 }
 
 export default function RootLayout({
