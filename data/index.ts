@@ -1,6 +1,4 @@
-import { IconNode, TriangleIcon } from "lucide-react"
-
-interface Project {
+export interface Project {
     name: string
     url: string
     img: string
