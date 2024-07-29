@@ -9,5 +9,14 @@ export default defineSchema({
         profileImg: v.string(),
         portfolio: v.optional(v.string()),
         xSocial: v.optional(v.string())
+    }),
+
+    portfolios: defineTable({
+        owner: v.string(),
+        name: v.string(),
+        url: v.string(),
+        img: v.optional(v.string()),
+        upvotes: v.optional(v.number()),
+        published: v.boolean()
     })
 })
