@@ -5,7 +5,16 @@ export default function ChangelogPage() {
         <div className="h-screen pt-12">
             <h1 className="text-2xl font-medium">Changelog</h1>
             <div className="flex flex-col mt-8">
-                <h2 className="font-medium">v1.3.1</h2>
+                <h2 className="font-medium">v1.4.0</h2>
+                <ul className="text-sm list-disc pl-4 mt-2">
+                    <li>
+                        Add feature to create own account so you can later show your own portfolio to the world or
+                        upvote others websites.
+                    </li>
+                </ul>
+            </div>
+            <div className="flex flex-col mt-8">
+                <h2 className="font-medium">v1.3.0</h2>
                 <ul className="text-sm list-disc pl-4 mt-2">
                     <li>Removed contribute through google form and added contribute form on the website.</li>
                 </ul>
