@@ -31,7 +31,7 @@ const Apple = () => (
 
 const Spotify = () => (
     <svg className="mr-0.5" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g clip-path="url(#clip0_23_8)">
+        <g clipPath="url(#clip0_23_8)">
             <path
                 d="M6 0.1875C2.6879 0.1875 0 2.79141 0 6C0 9.20859 2.6879 11.8125 6 11.8125C9.3121 11.8125 12 9.20859 12 6C12 2.79141 9.3121 0.1875 6 0.1875Z"
                 fill="#1ED760"
