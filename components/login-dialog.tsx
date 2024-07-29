@@ -23,14 +23,14 @@ export default function LoginDialog() {
                     </svg>
                 </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-md">
+            <DialogContent className="max-w-sm md:max-w-md">
                 <DialogHeader>
                     <h2 className="text-2xl font-bold text-center">Login</h2>
                 </DialogHeader>
                 <SignIn.Root>
                     <SignIn.Step name="start">
                         <Clerk.GlobalError className="block text-sm text-red-400" />
-                        <div className="flex gap-2 items-center justify-center">
+                        <div className="flex  flex-col md:flex-row gap-2 items-center justify-center">
                             <Clerk.Connection name="github">
                                 <Button>
                                     <svg
