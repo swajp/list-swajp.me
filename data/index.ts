@@ -243,5 +243,11 @@ export const projects: Project[] = [
         url: "https://t3.gg",
         img: "/t3.png",
         category: "Other"
+    },
+    {
+        name: "Marko",
+        url: "https://www.withmarko.com",
+        img: "/marko.png",
+        category: "Other"
     }
 ]
