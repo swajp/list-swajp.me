@@ -7,6 +7,12 @@ export default function ChangelogPage() {
             <div className="flex flex-col mt-8">
                 <h2 className="font-medium">v1.4.2</h2>
                 <ul className="text-sm list-disc pl-4 mt-2">
+                    <li>Added community so people can share their portfolios</li>
+                </ul>
+            </div>
+            <div className="flex flex-col mt-8">
+                <h2 className="font-medium">v1.4.2</h2>
+                <ul className="text-sm list-disc pl-4 mt-2">
                     <li>New category: Google</li>
                     <li>Changed button padding</li>
                 </ul>
