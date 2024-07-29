@@ -237,5 +237,11 @@ export const projects: Project[] = [
         url: "https://abdussalam.pk",
         img: "/abdussalam.png",
         category: "Meta"
+    },
+    {
+        name: "Theo Browne",
+        url: "https://t3.gg",
+        img: "/t3.png",
+        category: "Other"
     }
 ]
