@@ -249,5 +249,11 @@ export const projects: Project[] = [
         url: "https://www.withmarko.com",
         img: "/marko.png",
         category: "Other"
+    },
+    {
+        name: "nexxel",
+        url: "https://www.nexxel.dev",
+        img: "/nexxel.png",
+        category: "Other"
     }
 ]
