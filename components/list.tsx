@@ -34,7 +34,7 @@ export default function List({ projects, categories, searchParams }: ListProps) 
                             <div
                                 className={buttonVariants({
                                     variant: "default",
-                                    className: "!rounded-full text-xs border border-secondary/20 gap-0.5 h-7 px-2"
+                                    className: "!rounded-full text-xs border border-secondary/20 gap-0.5 h-7 !px-2"
                                 })}
                             >
                                 {project.name}
@@ -44,7 +44,7 @@ export default function List({ projects, categories, searchParams }: ListProps) 
                             <div
                                 className={buttonVariants({
                                     variant: "default",
-                                    className: "!rounded-full text-xs border border-secondary/20 gap-0.5 h-7 px-2"
+                                    className: "!rounded-full text-xs border border-secondary/20 gap-0.5 h-7 !px-3"
                                 })}
                             >
                                 {(categories.find(category => category.name === project.category)

@@ -34,6 +34,10 @@ export default function HomePage({ searchParams = {} }: { searchParams?: { categ
             icon: <Icon.Meta />
         },
         {
+            name: "Google",
+            icon: <Icon.Google />
+        },
+        {
             name: "Other"
         }
     ]

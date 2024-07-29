@@ -5,6 +5,13 @@ export default function ChangelogPage() {
         <div className="h-screen pt-12">
             <h1 className="text-2xl font-medium">Changelog</h1>
             <div className="flex flex-col mt-8">
+                <h2 className="font-medium">v1.4.2</h2>
+                <ul className="text-sm list-disc pl-4 mt-2">
+                    <li>New category: Google</li>
+                    <li>Changed button padding</li>
+                </ul>
+            </div>
+            <div className="flex flex-col mt-8">
                 <h2 className="font-medium">v1.4.1</h2>
                 <ul className="text-sm list-disc pl-4 mt-2">
                     <li>New category: Other</li>

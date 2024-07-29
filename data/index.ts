@@ -255,5 +255,29 @@ export const projects: Project[] = [
         url: "https://www.nexxel.dev",
         img: "/nexxel.png",
         category: "Other"
+    },
+    {
+        name: "Adam Argyle",
+        url: "https://nerdy.dev",
+        img: "/adam.png",
+        category: "Other"
+    },
+    {
+        name: "Adam Wathan",
+        url: "https://adamwathan.me",
+        img: "/adamw.png",
+        category: "Other"
+    },
+    {
+        name: "Aashia Mehta",
+        url: "https://aashia.com",
+        img: "/aashia.png",
+        category: "Meta"
+    },
+    {
+        name: "Divya Godayal",
+        url: "https://divya.dev",
+        img: "/divya.png",
+        category: "Google"
     }
 ]
