@@ -8,6 +8,7 @@ import { Label } from "./ui/label"
 import { Input } from "./ui/input"
 import React from "react"
 import { useUser } from "@clerk/nextjs"
+import { DialogTitle } from "@radix-ui/react-dialog"
 
 export default function SubmitDialog({ children }: { children: React.ReactNode }) {
     const [name, setName] = React.useState<string | null>(null)
@@ -66,7 +67,7 @@ export default function SubmitDialog({ children }: { children: React.ReactNode }
         <Dialog>
             <DialogTrigger asChild>{children}</DialogTrigger>
             <DialogContent className="max-w-sm ">
-                <DialogHeader className="text-xl font-medium mx-auto">Submit my portfolio</DialogHeader>
+                <DialogTitle className="text-xl font-medium mx-auto">Submit my portfolio</DialogTitle>
                 <form action={handleSubmit}>
                     <div className="flex flex-col gap-2 items-center justify-center">
                         <div className="space-y-4 w-full">
