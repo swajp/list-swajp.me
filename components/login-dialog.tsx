@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { Button } from "./ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "./ui/dialog"
 import * as Clerk from "@clerk/elements/common"
@@ -16,7 +17,7 @@ export default function LoginDialog({ children }: { children: React.ReactNode })
                 <SignIn.Root>
                     <SignIn.Step name="start">
                         <Clerk.GlobalError className="block text-sm text-red-400" />
-                        <div className="flex  flex-col md:flex-row gap-2 items-center justify-center">
+                        <div className="flex  flex-col gap-2 items-center justify-center">
                             <Clerk.Connection name="github">
                                 <Button>
                                     <svg
@@ -44,6 +45,9 @@ export default function LoginDialog({ children }: { children: React.ReactNode })
                                     Login with Github
                                 </Button>
                             </Clerk.Connection>
+                            <div className="text-sm">
+                                Don't have an account? <Link href="/sign-up">Sign up</Link>
+                            </div>
                             {/*<Clerk.Connection name="discord">
                                 <Button>
                                     <svg
