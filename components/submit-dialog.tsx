@@ -10,16 +10,18 @@ import React from "react"
 import { useUser } from "@clerk/nextjs"
 import { DialogTitle } from "@radix-ui/react-dialog"
 import { portfolioSubmited } from "@/lib/actions"
+import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 
 export default function SubmitDialog({ children }: { children: React.ReactNode }) {
     const [name, setName] = React.useState<string | null>(null)
     const [url, setUrl] = React.useState<string | null>(null)
 
+    const router = useRouter()
+
     const create = useMutation(api.portfolios.create)
     const { user } = useUser()
 
-    const [error, setError] = React.useState<string | null>(null)
-    const [success, setSuccess] = React.useState<string | null>(null)
     const [isSubmitting, setIsSubmitting] = React.useState(false)
 
     function checkUrl(url: string) {
@@ -32,18 +34,19 @@ export default function SubmitDialog({ children }: { children: React.ReactNode }
         if (pattern.test(url)) {
             return true
         } else {
-            setError("Invalid URL")
+            toast.error("Invalid URL")
+            return false
         }
     }
 
     const handleSubmit = async () => {
         if (!name || !url) {
-            setError("Please fill out all fields")
+            toast.error("Please fill out all fields")
             return
         }
 
         if (!user) {
-            setError("No logged in user")
+            toast.error("You need to be logged in to submit a portfolio")
         }
 
         if (!checkUrl(url)) {
@@ -59,8 +62,9 @@ export default function SubmitDialog({ children }: { children: React.ReactNode }
 
         await portfolioSubmited(user?.emailAddresses[0].emailAddress!, name, url)
         setIsSubmitting(false)
-        setError(null)
-        setSuccess("Portfolio submitted. Wait for approval")
+        toast.success("Portfolio submitted. Wait for approval")
+
+        router.push("/profile")
 
         setName(null)
         setUrl(null)
@@ -99,8 +103,6 @@ export default function SubmitDialog({ children }: { children: React.ReactNode }
                                 />
                             </div>
                         </div>
-                        {error && <p className="text-red-500 text-xs py-2">{error}</p>}
-                        {success && <p className="text-green-500 text-xs py-2">{success}</p>}
                         <div className="py-4">
                             <Button disabled={isSubmitting} type="submit" className="w-full rounded-full">
                                 Submit
