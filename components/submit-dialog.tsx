@@ -9,6 +9,7 @@ import { Input } from "./ui/input"
 import React from "react"
 import { useUser } from "@clerk/nextjs"
 import { DialogTitle } from "@radix-ui/react-dialog"
+import { portfolioSubmited } from "@/lib/actions"
 
 export default function SubmitDialog({ children }: { children: React.ReactNode }) {
     const [name, setName] = React.useState<string | null>(null)
@@ -55,6 +56,8 @@ export default function SubmitDialog({ children }: { children: React.ReactNode }
             name,
             url
         })
+
+        await portfolioSubmited(user?.emailAddresses[0].emailAddress!, name, url)
         setIsSubmitting(false)
         setError(null)
         setSuccess("Portfolio submitted. Wait for approval")

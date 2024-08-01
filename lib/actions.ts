@@ -56,3 +56,24 @@ export async function contribute(
         return { message: "fail" }
     }
 }
+
+export async function portfolioSubmited(email: string, name: string, url: string) {
+    try {
+        await transporter.sendMail({
+            from: '"sender@swajp.me" <sender@swajp.me>',
+            to: "me@swajp.me",
+            subject: "New portfolio submit",
+            html: `
+        <h2>Info</h2>
+        <ul>
+            <li>Email: ${email}</li>   
+            <li>Name: ${name}</li>
+            <li>Url: ${url}</li>
+        <ul>
+       
+      `
+        })
+    } catch (e) {
+        console.log(e)
+    }
+}
