@@ -32,19 +32,19 @@ export default function ProfilePage() {
         userId: user.id
     })
 
-    const portfolios = useQuery(api.portfolios.collectionByUser, {
-        userId: user.id
-    })
-
-    const remove = useMutation(api.portfolios.remove)
-
     if (!currentUser) {
         return <div>Loading...</div>
     }
 
+    const portfolios = useQuery(api.portfolios.collectionByUser, {
+        userId: user.id
+    })
+
     if (!portfolios) {
         return <div>Loading...</div>
     }
+
+    const remove = useMutation(api.portfolios.remove)
 
     const onRemove = (portfolioId: Id<"portfolios">) => {
         const promise = remove({
@@ -141,7 +141,7 @@ export default function ProfilePage() {
                         </TableHeader>
                         <TableBody>
                             {portfolios.map(portfolio => (
-                                <TableRow>
+                                <TableRow key={portfolio._id}>
                                     <TableCell className="font-medium">Portfolio</TableCell>
                                     <TableCell>{portfolio.name}</TableCell>
                                     <TableCell>
