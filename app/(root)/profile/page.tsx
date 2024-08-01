@@ -73,7 +73,7 @@ export default function ProfilePage() {
     }
 
     return (
-        <div className="h-screen flex gap-4">
+        <div className="h-screen flex flex-col lg:flex-row gap-4">
             <Card className="h-fit">
                 <CardHeader>
                     <CardTitle>Overview</CardTitle>
