@@ -78,7 +78,7 @@ export default function OnboardingComponent() {
                                 <p className="text-xs block text-muted-foreground max-w-xs pb-2">
                                     Enter your account on X (optional)
                                 </p>
-                                <Input name="xSocial" placeholder="https://x.com/swajp" type="text" />
+                                <Input name="xSocial" placeholder="@swajp" type="text" />
                             </div>
                         </div>
                         {error && <p className="text-red-500 text-xs py-2">{error}</p>}
