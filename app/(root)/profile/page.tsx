@@ -40,9 +40,9 @@ export default function ProfilePage() {
         })
 
         toast.promise(promise, {
-            loading: "Přidávám like...",
-            success: "Hotovo!",
-            error: "Chyba při přidávání like!"
+            loading: "Removing portfolio...",
+            success: "Successfully removed portfolio!",
+            error: "Error removing portfolio."
         })
     }
 
@@ -62,7 +62,7 @@ export default function ProfilePage() {
         return published ? (
             <div className="flex gap-2 items-center">
                 <div className="bg-green-500 h-2 w-2 rounded-full" />
-                Pending
+                Published
             </div>
         ) : (
             <div className="flex gap-2 items-center">
