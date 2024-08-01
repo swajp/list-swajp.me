@@ -12,6 +12,13 @@ export default function Footer() {
                 <Link className="text-muted-foreground hover:text-primary transition-colors" href={"/changelog"}>
                     changelog
                 </Link>
+                - support the project on{" "}
+                <Link
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                    href="https://buymeacoffee.com/swajp"
+                >
+                    buymeacoffee
+                </Link>
             </p>
         </footer>
     )
