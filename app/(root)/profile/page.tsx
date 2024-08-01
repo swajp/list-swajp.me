@@ -32,10 +32,14 @@ export default function ProfilePage() {
         userId: user?.id!
     })
 
-    const remove = useMutation(api.portfolios.remove)
+    const projects = useQuery(api.projects.collectionByUser, {
+        userId: user?.id!
+    })
 
-    const onRemove = (portfolioId: Id<"portfolios">) => {
-        const promise = remove({
+    const removePortfolio = useMutation(api.portfolios.remove)
+
+    const onRemovePortfolio = (portfolioId: Id<"portfolios">) => {
+        const promise = removePortfolio({
             portfolioId
         })
 
@@ -46,7 +50,25 @@ export default function ProfilePage() {
         })
     }
 
+    const removeProject = useMutation(api.projects.remove)
+
+    const onRemoveProject = (projectId: Id<"projects">) => {
+        const promise = removeProject({
+            projectId
+        })
+
+        toast.promise(promise, {
+            loading: "Removing project...",
+            success: "Successfully removed project!",
+            error: "Error removing project."
+        })
+    }
+
     if (!portfolios) {
+        return <div>Loading...</div>
+    }
+
+    if (!projects) {
         return <div>Loading...</div>
     }
 
@@ -57,6 +79,11 @@ export default function ProfilePage() {
     if (!currentUser) {
         return <div>Loading...</div>
     }
+
+    const mixedData = [
+        ...portfolios.map(p => ({ ...p, type: "portfolio" })),
+        ...projects.map(p => ({ ...p, type: "project" }))
+    ]
 
     function getStatus(published: boolean) {
         return published ? (
@@ -123,7 +150,7 @@ export default function ProfilePage() {
             </Card>
             <Card className="h-fit max-w-2xl w-full">
                 <CardHeader>
-                    <CardTitle>Requests ({portfolios.length})</CardTitle>
+                    <CardTitle>Requests ({mixedData.length})</CardTitle>
                     <CardDescription>
                         View your portfolio requests. Pending requests will be reviewed within 24 hours.
                     </CardDescription>
@@ -140,14 +167,14 @@ export default function ProfilePage() {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {portfolios.map(portfolio => (
-                                <TableRow key={portfolio._id}>
+                            {mixedData.map(data => (
+                                <TableRow key={data._id}>
                                     <TableCell className="font-medium">Portfolio</TableCell>
-                                    <TableCell>{portfolio.name}</TableCell>
+                                    <TableCell>{data.name}</TableCell>
                                     <TableCell>
-                                        <Link href={portfolio.url}>{portfolio.url}</Link>
+                                        <Link href={data.url}>{data.url}</Link>
                                     </TableCell>
-                                    <TableCell>{getStatus(portfolio.published)}</TableCell>
+                                    <TableCell>{getStatus(data.published)}</TableCell>
                                     <TableCell className="flex justify-center">
                                         <AlertDialog>
                                             <AlertDialogTrigger asChild>
@@ -163,9 +190,22 @@ export default function ProfilePage() {
                                                 </AlertDialogHeader>
                                                 <AlertDialogFooter>
                                                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                    <AlertDialogAction onClick={() => onRemove(portfolio._id)}>
-                                                        Continue
-                                                    </AlertDialogAction>
+
+                                                    {data.type === "portfolio" ? (
+                                                        <AlertDialogAction
+                                                            onClick={() =>
+                                                                onRemovePortfolio(data._id as Id<"portfolios">)
+                                                            }
+                                                        >
+                                                            Continue
+                                                        </AlertDialogAction>
+                                                    ) : data.type === "project" ? (
+                                                        <AlertDialogAction
+                                                            onClick={() => onRemoveProject(data._id as Id<"projects">)}
+                                                        >
+                                                            Continue
+                                                        </AlertDialogAction>
+                                                    ) : null}
                                                 </AlertDialogFooter>
                                             </AlertDialogContent>
                                         </AlertDialog>
