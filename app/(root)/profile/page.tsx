@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { api } from "@/convex/_generated/api"
 import { Id } from "@/convex/_generated/dataModel"
-import { useUser } from "@clerk/nextjs"
+import { SignOutButton, useUser } from "@clerk/nextjs"
 import { useMutation, useQuery } from "convex/react"
 import { TrashIcon } from "lucide-react"
 import Link from "next/link"
@@ -20,6 +20,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger
 } from "@/components/ui/alert-dialog"
+import { Button } from "@/components/ui/button"
 
 export default function ProfilePage() {
     const { user } = useUser()
@@ -142,11 +143,11 @@ export default function ProfilePage() {
                         </div>
                     </div>
                 </CardContent>
-                {/* 
-              <CardFooter>
-                <Button>Update Profile</Button> 
-              </CardFooter>
-                */}
+                <CardFooter>
+                    <SignOutButton>
+                        <Button>Sign out</Button>
+                    </SignOutButton>
+                </CardFooter>
             </Card>
             <Card className="h-fit max-w-2xl w-full">
                 <CardHeader>
