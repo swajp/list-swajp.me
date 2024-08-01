@@ -24,25 +24,13 @@ import {
 export default function ProfilePage() {
     const { user } = useUser()
 
-    if (!user) {
-        return <div>Loading...</div>
-    }
-
     const currentUser = useQuery(api.users.get, {
-        userId: user.id
+        userId: user?.id!
     })
-
-    if (!currentUser) {
-        return <div>Loading...</div>
-    }
 
     const portfolios = useQuery(api.portfolios.collectionByUser, {
-        userId: user.id
+        userId: user?.id!
     })
-
-    if (!portfolios) {
-        return <div>Loading...</div>
-    }
 
     const remove = useMutation(api.portfolios.remove)
 
@@ -56,6 +44,18 @@ export default function ProfilePage() {
             success: "Hotovo!",
             error: "Chyba při přidávání like!"
         })
+    }
+
+    if (!portfolios) {
+        return <div>Loading...</div>
+    }
+
+    if (!user) {
+        return <div>Loading...</div>
+    }
+
+    if (!currentUser) {
+        return <div>Loading...</div>
     }
 
     function getStatus(published: boolean) {
