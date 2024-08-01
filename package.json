@@ -22,9 +22,11 @@
     "convex": "^1.13.2",
     "lucide-react": "^0.416.0",
     "next": "14.2.5",
+    "next-themes": "^0.3.0",
     "nodemailer": "^6.9.14",
     "react": "^18",
     "react-dom": "^18",
+    "sonner": "^1.5.0",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"
