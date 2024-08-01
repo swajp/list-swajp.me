@@ -13,6 +13,9 @@ export default function Navbar() {
                 <Link className="text-muted-foreground hover:text-primary transition-colors" href={"/community"}>
                     community
                 </Link>
+                <Link className="text-muted-foreground hover:text-primary transition-colors" href={"/projects"}>
+                    projects
+                </Link>
             </div>
             <div className="flex items-center justify-center gap-2">
                 <Link className="text-muted-foreground hover:text-primary transition-colors" href={"/contributors"}>

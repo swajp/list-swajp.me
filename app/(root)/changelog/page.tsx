@@ -5,6 +5,15 @@ export default function ChangelogPage() {
         <div className="h-screen pt-12">
             <h1 className="text-2xl font-medium">Changelog</h1>
             <div className="flex flex-col mt-8">
+                <h2 className="font-medium">v1.7.0</h2>
+                <ul className="text-sm list-disc pl-4 mt-2">
+                    <li>
+                        Added projects so you can show your project to the world and get feedback from the community or
+                        new users.
+                    </li>
+                </ul>
+            </div>
+            <div className="flex flex-col mt-8">
                 <h2 className="font-medium">v1.6.0</h2>
                 <ul className="text-sm list-disc pl-4 mt-2">
                     <li>Added profile page where you can see your account details and portfolio requests.</li>
