@@ -4,6 +4,7 @@ import "./globals.css"
 import { Analytics } from "@vercel/analytics/next"
 import { ClerkProvider } from "@clerk/nextjs"
 import ConvexClientProvider from "@/components/convex-provider-clerk"
+import { Toaster } from "@/components/ui/sonner"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -25,6 +26,7 @@ export default function RootLayout({
                 <body className={inter.className}>
                     {children}
                     <Analytics />
+                    <Toaster />
                 </body>
             </html>
         </ConvexClientProvider>

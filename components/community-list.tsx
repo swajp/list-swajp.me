@@ -19,8 +19,6 @@ export default function CommunityList() {
         return <div>Loading...</div>
     }
 
-    console.log(projects)
-
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 py-8">
             {projects.map(project => (
