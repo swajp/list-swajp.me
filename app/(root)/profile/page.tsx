@@ -169,7 +169,9 @@ export default function ProfilePage() {
                         <TableBody>
                             {mixedData.map(data => (
                                 <TableRow key={data._id}>
-                                    <TableCell className="font-medium">Portfolio</TableCell>
+                                    <TableCell className="font-medium">
+                                        {data.type === "portfolio" ? "Portfolio" : "Project"}
+                                    </TableCell>
                                     <TableCell>{data.name}</TableCell>
                                     <TableCell>
                                         <Link href={data.url}>{data.url}</Link>
