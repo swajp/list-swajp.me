@@ -27,7 +27,7 @@ export default function ProjectsList() {
                     <Image
                         className="rounded-lg"
                         quality={100}
-                        src={`/community/${project.img!}`}
+                        src={`/projects/${project.img!}`}
                         alt={project.name}
                         width={453}
                         height={254}
