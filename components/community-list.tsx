@@ -5,8 +5,9 @@ import Link from "next/link"
 import { buttonVariants } from "./ui/button"
 import { Project } from "@/data"
 import { Category } from "@/app/(root)/page"
-import { useQuery } from "convex/react"
+import { useMutation, useQuery } from "convex/react"
 import { api } from "@/convex/_generated/api"
+import { Id } from "@/convex/_generated/dataModel"
 
 interface ListProps {
     projects: Project[]
@@ -15,6 +16,8 @@ interface ListProps {
 export default function CommunityList() {
     const projects = useQuery(api.portfolios.collection)
 
+    const updateViews = useMutation(api.portfolios.updateViews)
+
     if (!projects) {
         return <div>Loading...</div>
     }
@@ -22,7 +25,15 @@ export default function CommunityList() {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 py-8">
             {projects.map(project => (
-                <Link target="_blank" href={project.url} key={project.name} className="relative border rounded-lg">
+                <Link
+                    onClick={() => {
+                        updateViews({ portfolioId: project._id as Id<"portfolios"> })
+                    }}
+                    target="_blank"
+                    href={project.url}
+                    key={project.name}
+                    className="relative border rounded-lg"
+                >
                     <Image
                         className="rounded-lg"
                         quality={100}
