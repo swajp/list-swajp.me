@@ -20,7 +20,8 @@ export const create = mutation({
             name: args.name,
             url: args.url,
             upvotes: 0,
-            published: false
+            published: false,
+            views: 0
         })
 
         return portfolio
@@ -70,6 +71,28 @@ export const remove = mutation({
             throw new Error("Portfolio not found")
         }
 
+        if (portfolio.owner !== identity.subject) {
+            throw new Error("Unauthorized")
+        }
+
         await ctx.db.delete(portfolio._id)
+    }
+})
+
+export const updateViews = mutation({
+    args: { portfolioId: v.id("portfolios") },
+    handler: async (ctx, args) => {
+        const portfolio = await ctx.db
+            .query("portfolios")
+            .filter(q => q.eq(q.field("_id"), args.portfolioId))
+            .first()
+
+        if (!portfolio) {
+            throw new Error("Portfolio not found")
+        }
+
+        await ctx.db.patch(portfolio._id, {
+            views: (portfolio.views ?? 0) + 1
+        })
     }
 })
