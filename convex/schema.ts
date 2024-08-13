@@ -17,7 +17,8 @@ export default defineSchema({
         url: v.string(),
         img: v.optional(v.string()),
         upvotes: v.optional(v.number()),
-        published: v.boolean()
+        published: v.boolean(),
+        views: v.optional(v.number())
     }),
 
     projects: defineTable({
@@ -29,6 +30,7 @@ export default defineSchema({
         img: v.optional(v.string()),
         upvotes: v.optional(v.number()),
         published: v.boolean(),
-        featured: v.optional(v.boolean())
+        featured: v.optional(v.boolean()),
+        views: v.optional(v.number())
     })
 })
