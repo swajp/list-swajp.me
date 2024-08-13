@@ -57,7 +57,6 @@ export default function SubmitProject({ children }: { children: React.ReactNode 
         setIsSubmitting(true)
 
         await create({
-            userId: user?.id!,
             name,
             url,
             description,

@@ -55,7 +55,6 @@ export default function SubmitDialog({ children }: { children: React.ReactNode }
         setIsSubmitting(true)
 
         await create({
-            userId: user?.id!,
             name,
             url
         })

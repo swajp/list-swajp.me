@@ -4,7 +4,6 @@ import { mutation, query } from "./_generated/server"
 
 export const create = mutation({
     args: {
-        userId: v.string(),
         name: v.string(),
         url: v.string(),
         description: v.string(),
@@ -18,7 +17,7 @@ export const create = mutation({
         }
 
         const project = await ctx.db.insert("projects", {
-            owner: args.userId,
+            owner: identity.subject,
             name: args.name,
             url: args.url,
             description: args.description,
