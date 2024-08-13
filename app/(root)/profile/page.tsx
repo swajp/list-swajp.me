@@ -86,6 +86,10 @@ export default function ProfilePage() {
         ...projects.map(p => ({ ...p, type: "project" }))
     ]
 
+    const sortedData = mixedData.sort(
+        (a, b) => new Date(b._creationTime).getTime() - new Date(a._creationTime).getTime()
+    )
+
     function getStatus(published: boolean) {
         return published ? (
             <div className="flex gap-2 items-center">
@@ -164,11 +168,12 @@ export default function ProfilePage() {
                                 <TableHead>Name</TableHead>
                                 <TableHead>Url</TableHead>
                                 <TableHead>Status</TableHead>
+                                <TableHead className="text-center">Views</TableHead>
                                 <TableHead>Actions</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {mixedData.map(data => (
+                            {sortedData.map(data => (
                                 <TableRow key={data._id}>
                                     <TableCell className="font-medium">
                                         {data.type === "portfolio" ? "Portfolio" : "Project"}
@@ -178,6 +183,7 @@ export default function ProfilePage() {
                                         <Link href={data.url}>{data.url}</Link>
                                     </TableCell>
                                     <TableCell>{getStatus(data.published)}</TableCell>
+                                    <TableCell className="text-center">{data.views && data.views | 0}</TableCell>
                                     <TableCell className="flex justify-center">
                                         <AlertDialog>
                                             <AlertDialogTrigger asChild>
