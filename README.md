@@ -1,5 +1,14 @@
 # It has never been easier to find the right projects or designs by inspiring sucessful people.
 <a href="https://buymeacoffee.com/swajp" alt="buyacoffe">
+
+# TO-DO
+- [ ] Upvoting
+- [ ] Displaying other users profiles
+- [ ] Improve adding projects & portfolios
+
+- [x] View statistics on profile
+
+
 <img src="https://github.com/user-attachments/assets/37b0e28f-c82f-42a9-bd1e-d937488758ab"/>
 </a>
 
