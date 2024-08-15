@@ -2,8 +2,15 @@ import Link from "next/link"
 
 export default function ChangelogPage() {
     return (
-        <div className="h-screen pt-12">
+        <div className="h-full pb-8 pt-12">
             <h1 className="text-2xl font-medium">Changelog</h1>
+            <div className="flex flex-col mt-8">
+                <h2 className="font-medium">v1.7.3</h2>
+                <ul className="text-sm list-disc pl-4 mt-2">
+                    <li>Fixed changelog height.</li>
+                    <li>Improved process while submiting project & portfolio</li>
+                </ul>
+            </div>
             <div className="flex flex-col mt-8">
                 <h2 className="font-medium">v1.7.2</h2>
                 <ul className="text-sm list-disc pl-4 mt-2">
