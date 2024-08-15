@@ -7,6 +7,12 @@ export interface Project {
 
 export const projects: Project[] = [
     {
+        name: "Jesse's Ramen",
+        url: "https://jesse-zhou.com",
+        img: "/jesseramen.png",
+        category: "Other"
+    },
+    {
         name: "Lee Robinson",
         url: "https://leerob.io",
         img: "/lee.png",
