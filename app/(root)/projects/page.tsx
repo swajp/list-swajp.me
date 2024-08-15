@@ -1,8 +1,7 @@
-import LoginDialog from "@/components/login-dialog"
 import ProjectsList from "@/components/projects-list"
 import SubmitProject from "@/components/submit-project"
 import { Button } from "@/components/ui/button"
-import { SignedIn, SignedOut } from "@clerk/nextjs"
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs"
 
 export default function CommunityPage() {
     return (
@@ -12,11 +11,11 @@ export default function CommunityPage() {
                     Show your project to the world and get feedback from the community or new users.
                 </h1>
                 <SignedOut>
-                    <LoginDialog>
+                    <SignInButton mode="modal">
                         <Button variant="default" className="!rounded-full w-fit h-8 px-2 ">
                             Submit my project
                         </Button>
-                    </LoginDialog>
+                    </SignInButton>
                 </SignedOut>
                 <SignedIn>
                     <SubmitProject>
