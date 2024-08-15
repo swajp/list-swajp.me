@@ -11,7 +11,6 @@ import { useUser } from "@clerk/nextjs"
 import { DialogTitle } from "@radix-ui/react-dialog"
 import { portfolioSubmited } from "@/lib/actions"
 import { toast } from "sonner"
-import { useRouter } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -20,8 +19,6 @@ export default function SubmitDialog({ children }: { children: React.ReactNode }
     const [url, setUrl] = React.useState<string | null>(null)
 
     const [submited, setSubmited] = React.useState(false)
-
-    const router = useRouter()
 
     const create = useMutation(api.portfolios.create)
     const { user } = useUser()
