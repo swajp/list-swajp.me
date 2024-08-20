@@ -3,6 +3,7 @@ import Link from "next/link"
 import { buttonVariants } from "./ui/button"
 import { Project } from "@/data"
 import { Category } from "@/app/(root)/page"
+import ViewOtherProjects from "./view-other-projects"
 
 interface ListProps {
     projects: Project[]
@@ -55,6 +56,7 @@ export default function List({ projects, categories, searchParams }: ListProps) 
                         </div>
                     </Link>
                 ))}
+            <ViewOtherProjects />
         </div>
     )
 }
