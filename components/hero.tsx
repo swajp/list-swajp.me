@@ -7,7 +7,7 @@ export default function Hero() {
         <>
             <div className="flex flex-col gap-4 pt-12 pb-8 max-w-lg">
                 <h1 className="text-3xl font-medium">
-                    It has never been easier to find the right projects or designs by inspiring sucessful people.
+                    It has never been easier to find the right projects or designs by inspiring successful people.
                 </h1>
                 <div className="flex gap-2">
                     <Link
