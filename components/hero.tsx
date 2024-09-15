@@ -14,7 +14,7 @@ export default function Hero() {
                         target="_blank"
                         className={buttonVariants({
                             variant: "default",
-                            className: "!rounded-full bg-[#5865f2] hover:bg-[#4753db] w-fit h-8 px-2 gap-1 "
+                            className: "!rounded-full !bg-[#5865f2] hover:!bg-[#4753db] w-fit h-8 px-2 gap-1 "
                         })}
                         href="https://discord.gg/wbnZU3vTMb"
                     >
