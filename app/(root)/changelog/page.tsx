@@ -5,6 +5,12 @@ export default function ChangelogPage() {
         <div className="h-full pb-8 pt-12">
             <h1 className="text-2xl font-medium">Changelog</h1>
             <div className="flex flex-col mt-8">
+                <h2 className="font-medium">v1.7.4</h2>
+                <ul className="text-sm list-disc pl-4 mt-2">
+                    <li>Added discord link.</li>
+                </ul>
+            </div>
+            <div className="flex flex-col mt-8">
                 <h2 className="font-medium">v1.7.3</h2>
                 <ul className="text-sm list-disc pl-4 mt-2">
                     <li>Fixed changelog height.</li>
@@ -21,18 +27,15 @@ export default function ChangelogPage() {
                 <h2 className="font-medium">v1.7.1</h2>
                 <ul className="text-sm list-disc pl-4 mt-2">
                     <li>
-                        Added projects to public middleware. I accidentally didnt add it to the public middleware so
-                        people couldnt see the projects page. What a mistake.
+                        Added projects to public middleware. I accidentally didnt add it to the public middleware so people couldnt see the projects
+                        page. What a mistake.
                     </li>
                 </ul>
             </div>
             <div className="flex flex-col mt-8">
                 <h2 className="font-medium">v1.7.0</h2>
                 <ul className="text-sm list-disc pl-4 mt-2">
-                    <li>
-                        Added projects so you can show your project to the world and get feedback from the community or
-                        new users.
-                    </li>
+                    <li>Added projects so you can show your project to the world and get feedback from the community or new users.</li>
                 </ul>
             </div>
             <div className="flex flex-col mt-8">
@@ -63,10 +66,7 @@ export default function ChangelogPage() {
             <div className="flex flex-col mt-8">
                 <h2 className="font-medium">v1.4.0</h2>
                 <ul className="text-sm list-disc pl-4 mt-2">
-                    <li>
-                        Add feature to create own account so you can later show your own portfolio to the world or
-                        upvote others websites.
-                    </li>
+                    <li>Add feature to create own account so you can later show your own portfolio to the world or upvote others websites.</li>
                 </ul>
             </div>
             <div className="flex flex-col mt-8">
