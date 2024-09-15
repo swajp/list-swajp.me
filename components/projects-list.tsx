@@ -7,8 +7,8 @@ import { Project } from "@/data"
 import { useMutation, useQuery } from "convex/react"
 import { api } from "@/convex/_generated/api"
 import { Id } from "@/convex/_generated/dataModel"
-import SubmitDialog from "./submit-dialog"
 import SubmitActionCard from "./submit-action-card"
+import SubmitProject from "./submit-project"
 
 interface ListProps {
     projects: Project[]
@@ -48,11 +48,11 @@ export default function ProjectsList() {
                     </div>
                 </Link>
             ))}
-            <SubmitDialog>
+            <SubmitProject>
                 <button className="outline-none">
                     <SubmitActionCard text="Submit my own project. 🚀" />
                 </button>
-            </SubmitDialog>
+            </SubmitProject>
         </div>
     )
 }
