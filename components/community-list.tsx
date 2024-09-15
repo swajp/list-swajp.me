@@ -10,6 +10,7 @@ import { api } from "@/convex/_generated/api"
 import { Id } from "@/convex/_generated/dataModel"
 import SubmitActionCard from "./submit-action-card"
 import SubmitDialog from "./submit-dialog"
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs"
 
 interface ListProps {
     projects: Project[]
@@ -49,11 +50,20 @@ export default function CommunityList() {
                     </div>
                 </Link>
             ))}
-            <SubmitDialog>
-                <button className="outline-none">
-                    <SubmitActionCard text="Submit my own portfolio. 💌" />
-                </button>
-            </SubmitDialog>
+            <SignedIn>
+                <SubmitDialog>
+                    <button className="outline-none">
+                        <SubmitActionCard text="Submit my own portfolio. 💌" />
+                    </button>
+                </SubmitDialog>
+            </SignedIn>
+            <SignedOut>
+                <SignInButton mode="modal">
+                    <button className="outline-none">
+                        <SubmitActionCard text="Submit my own portfolio. 💌" />
+                    </button>
+                </SignInButton>
+            </SignedOut>
         </div>
     )
 }

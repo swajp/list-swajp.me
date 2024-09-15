@@ -9,6 +9,7 @@ import { api } from "@/convex/_generated/api"
 import { Id } from "@/convex/_generated/dataModel"
 import SubmitActionCard from "./submit-action-card"
 import SubmitProject from "./submit-project"
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs"
 
 interface ListProps {
     projects: Project[]
@@ -48,11 +49,20 @@ export default function ProjectsList() {
                     </div>
                 </Link>
             ))}
-            <SubmitProject>
-                <button className="outline-none">
-                    <SubmitActionCard text="Submit my own project. 🚀" />
-                </button>
-            </SubmitProject>
+            <SignedIn>
+                <SubmitProject>
+                    <button className="outline-none">
+                        <SubmitActionCard text="Submit my own project. 🚀" />
+                    </button>
+                </SubmitProject>
+            </SignedIn>
+            <SignedOut>
+                <SignInButton mode="modal">
+                    <button className="outline-none">
+                        <SubmitActionCard text="Submit my own project. 🚀" />
+                    </button>
+                </SignInButton>
+            </SignedOut>
         </div>
     )
 }
