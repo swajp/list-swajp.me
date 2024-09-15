@@ -8,6 +8,8 @@ import { Category } from "@/app/(root)/page"
 import { useMutation, useQuery } from "convex/react"
 import { api } from "@/convex/_generated/api"
 import { Id } from "@/convex/_generated/dataModel"
+import SubmitActionCard from "./submit-action-card"
+import SubmitDialog from "./submit-dialog"
 
 interface ListProps {
     projects: Project[]
@@ -34,14 +36,7 @@ export default function CommunityList() {
                     key={project.name}
                     className="relative border rounded-lg"
                 >
-                    <Image
-                        className="rounded-lg"
-                        quality={100}
-                        src={`/community/${project.img!}`}
-                        alt={project.name}
-                        width={453}
-                        height={254}
-                    />
+                    <Image className="rounded-lg" quality={100} src={`/community/${project.img!}`} alt={project.name} width={453} height={254} />
                     <div className="absolute bottom-0 left-0 right-0  p-3">
                         <div
                             className={buttonVariants({
@@ -54,6 +49,11 @@ export default function CommunityList() {
                     </div>
                 </Link>
             ))}
+            <SubmitDialog>
+                <button className="outline-none">
+                    <SubmitActionCard text="Submit my own portfolio. 💌" />
+                </button>
+            </SubmitDialog>
         </div>
     )
 }

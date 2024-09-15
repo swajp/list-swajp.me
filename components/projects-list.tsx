@@ -7,6 +7,8 @@ import { Project } from "@/data"
 import { useMutation, useQuery } from "convex/react"
 import { api } from "@/convex/_generated/api"
 import { Id } from "@/convex/_generated/dataModel"
+import SubmitDialog from "./submit-dialog"
+import SubmitActionCard from "./submit-action-card"
 
 interface ListProps {
     projects: Project[]
@@ -33,14 +35,7 @@ export default function ProjectsList() {
                     key={project.name}
                     className="relative border rounded-lg"
                 >
-                    <Image
-                        className="rounded-lg"
-                        quality={100}
-                        src={`/projects/${project.img!}`}
-                        alt={project.name}
-                        width={453}
-                        height={254}
-                    />
+                    <Image className="rounded-lg" quality={100} src={`/projects/${project.img!}`} alt={project.name} width={453} height={254} />
                     <div className="absolute bottom-0 left-0 right-0  p-3">
                         <div
                             className={buttonVariants({
@@ -53,6 +48,11 @@ export default function ProjectsList() {
                     </div>
                 </Link>
             ))}
+            <SubmitDialog>
+                <button className="outline-none">
+                    <SubmitActionCard text="Submit my own project. 🚀" />
+                </button>
+            </SubmitDialog>
         </div>
     )
 }
