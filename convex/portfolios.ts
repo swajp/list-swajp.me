@@ -119,19 +119,21 @@ export const upvote = mutation({
             throw new Error("Cannot upvote own portfolio")
         }
 
-        const upvotes: { userId: string; portfolioId: string }[] = Array.isArray(portfolio.upvotes) ? portfolio.upvotes : []
-        const userUpvoteIndex = upvotes.findIndex(upvote => upvote.userId === identity.subject)
+        const newUpvotes: { userId: string; portfolioId: string }[] = Array.isArray(portfolio.newUpvotes) ? portfolio.newUpvotes : []
+        const userUpvoteIndex = newUpvotes.findIndex(newUpvote => newUpvote.userId === identity.subject)
+
+        console.log("userUpvoteIndex", userUpvoteIndex)
 
         if (userUpvoteIndex !== -1) {
             // User has already upvoted, so remove the upvote
-            upvotes.splice(userUpvoteIndex, 1)
+            newUpvotes.splice(userUpvoteIndex, 1)
         } else {
             // User has not upvoted, so add the upvote
-            upvotes.push({ userId: identity.subject, portfolioId: args.portfolioId })
+            newUpvotes.push({ userId: identity.subject, portfolioId: args.portfolioId })
         }
 
         await ctx.db.patch(portfolio._id, {
-            newUpvotes: upvotes
+            newUpvotes: newUpvotes
         })
     }
 })

@@ -9,17 +9,41 @@ import { api } from "@/convex/_generated/api"
 import { Id } from "@/convex/_generated/dataModel"
 import SubmitActionCard from "./submit-action-card"
 import SubmitProject from "./submit-project"
-import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs"
+import { SignedIn, SignedOut, SignInButton, useUser } from "@clerk/nextjs"
 import { Skeleton } from "./ui/skeleton"
+import { useState } from "react"
+import { toast } from "sonner"
+import { ArrowUp } from "lucide-react"
 
 interface ListProps {
     projects: Project[]
 }
 
+const RATE_LIMIT_INTERVAL = 10000
+
 export default function ProjectsList() {
     const projects = useQuery(api.projects.collection)
 
+    const [lastUpvoteTime, setLastUpvoteTime] = useState(0)
+    const upvote = useMutation(api.projects.upvote)
+
     const updateViews = useMutation(api.projects.updateViews)
+
+    const handleUpvote = async (projectId: Id<"projects">) => {
+        const currentTime = Date.now()
+
+        if (currentTime - lastUpvoteTime < RATE_LIMIT_INTERVAL) {
+            toast.error("Don't spam me like that 😡")
+            return
+        }
+
+        setLastUpvoteTime(currentTime)
+        await upvote({ projectId })
+
+        toast.success("Upvoted successfully! 🎉")
+    }
+
+    const { user } = useUser()
 
     if (!projects) {
         return (
@@ -69,6 +93,58 @@ export default function ProjectsList() {
                             {project.name}
                         </div>
                     </div>
+                    <SignedIn>
+                        <div className="absolute bottom-0 right-0  p-3">
+                            {project.owner === user?.id ? (
+                                <div
+                                    onClick={e => {
+                                        e.preventDefault()
+                                        e.stopPropagation()
+                                    }}
+                                    className={buttonVariants({
+                                        variant: "secondary",
+                                        className: "!rounded-full text-xs border border-secondary/20 gap-0.5 h-7 !px-1.5"
+                                    })}
+                                >
+                                    <ArrowUp size={14} className="inline-block" />
+                                    {project.newUpvotes?.length ?? 0}
+                                </div>
+                            ) : (
+                                <div
+                                    onClick={e => {
+                                        e.preventDefault()
+                                        e.stopPropagation()
+                                        handleUpvote(project._id as Id<"projects">)
+                                    }}
+                                    className={buttonVariants({
+                                        variant: "secondary",
+                                        className: "!rounded-full text-xs border border-secondary/20 gap-0.5 h-7 !px-1.5"
+                                    })}
+                                >
+                                    <ArrowUp size={14} className="inline-block" />
+                                    {project.newUpvotes?.length ?? 0}
+                                </div>
+                            )}
+                        </div>
+                    </SignedIn>
+                    <SignedOut>
+                        <SignInButton mode="modal">
+                            <div className="absolute bottom-0 right-0  p-3">
+                                <div
+                                    onClick={e => {
+                                        e.preventDefault()
+                                    }}
+                                    className={buttonVariants({
+                                        variant: "secondary",
+                                        className: "!rounded-full text-xs border border-secondary/20 gap-0.5 h-7 !px-1.5"
+                                    })}
+                                >
+                                    <ArrowUp size={14} className="inline-block" />
+                                    {project.newUpvotes?.length ?? 0}
+                                </div>
+                            </div>
+                        </SignInButton>
+                    </SignedOut>
                 </Link>
             ))}
             <SignedIn>
