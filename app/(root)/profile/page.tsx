@@ -81,14 +81,9 @@ export default function ProfilePage() {
         return <div>Loading...</div>
     }
 
-    const mixedData = [
-        ...portfolios.map(p => ({ ...p, type: "portfolio" })),
-        ...projects.map(p => ({ ...p, type: "project" }))
-    ]
+    const mixedData = [...portfolios.map(p => ({ ...p, type: "portfolio" })), ...projects.map(p => ({ ...p, type: "project" }))]
 
-    const sortedData = mixedData.sort(
-        (a, b) => new Date(b._creationTime).getTime() - new Date(a._creationTime).getTime()
-    )
+    const sortedData = mixedData.sort((a, b) => new Date(b._creationTime).getTime() - new Date(a._creationTime).getTime())
 
     function getStatus(published: boolean) {
         return published ? (
@@ -141,9 +136,7 @@ export default function ProfilePage() {
                         </div>
                         <div>
                             <div className="text-sm text-muted-foreground">Joined</div>
-                            <div className="font-medium">
-                                {new Date(currentUser?._creationTime ?? "").toLocaleDateString()}
-                            </div>
+                            <div className="font-medium">{new Date(currentUser?._creationTime ?? "").toLocaleDateString()}</div>
                         </div>
                     </div>
                 </CardContent>
@@ -153,12 +146,10 @@ export default function ProfilePage() {
                     </SignOutButton>
                 </CardFooter>
             </Card>
-            <Card className="h-fit max-w-2xl w-full">
+            <Card className="h-fit lg:max-w-2xl w-full">
                 <CardHeader>
                     <CardTitle>Requests ({mixedData.length})</CardTitle>
-                    <CardDescription>
-                        View your portfolio requests. Pending requests will be reviewed within 24 hours.
-                    </CardDescription>
+                    <CardDescription>View your portfolio requests. Pending requests will be reviewed within 24 hours.</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <Table>
@@ -175,9 +166,7 @@ export default function ProfilePage() {
                         <TableBody>
                             {sortedData.map(data => (
                                 <TableRow key={data._id}>
-                                    <TableCell className="font-medium">
-                                        {data.type === "portfolio" ? "Portfolio" : "Project"}
-                                    </TableCell>
+                                    <TableCell className="font-medium">{data.type === "portfolio" ? "Portfolio" : "Project"}</TableCell>
                                     <TableCell>{data.name}</TableCell>
                                     <TableCell>
                                         <Link href={data.url}>{data.url}</Link>
@@ -193,25 +182,19 @@ export default function ProfilePage() {
                                                 <AlertDialogHeader>
                                                     <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                                                     <AlertDialogDescription>
-                                                        This action cannot be undone. This will permanently delete your
-                                                        account and remove your data from our servers.
+                                                        This action cannot be undone. This will permanently delete your account and remove your data
+                                                        from our servers.
                                                     </AlertDialogDescription>
                                                 </AlertDialogHeader>
                                                 <AlertDialogFooter>
                                                     <AlertDialogCancel>Cancel</AlertDialogCancel>
 
                                                     {data.type === "portfolio" ? (
-                                                        <AlertDialogAction
-                                                            onClick={() =>
-                                                                onRemovePortfolio(data._id as Id<"portfolios">)
-                                                            }
-                                                        >
+                                                        <AlertDialogAction onClick={() => onRemovePortfolio(data._id as Id<"portfolios">)}>
                                                             Continue
                                                         </AlertDialogAction>
                                                     ) : data.type === "project" ? (
-                                                        <AlertDialogAction
-                                                            onClick={() => onRemoveProject(data._id as Id<"projects">)}
-                                                        >
+                                                        <AlertDialogAction onClick={() => onRemoveProject(data._id as Id<"projects">)}>
                                                             Continue
                                                         </AlertDialogAction>
                                                     ) : null}
