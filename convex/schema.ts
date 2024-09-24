@@ -17,6 +17,14 @@ export default defineSchema({
         url: v.string(),
         img: v.optional(v.string()),
         upvotes: v.optional(v.number()),
+        newUpvotes: v.optional(
+            v.array(
+                v.object({
+                    userId: v.string(),
+                    portfolioId: v.string()
+                })
+            )
+        ),
         published: v.boolean(),
         views: v.optional(v.number())
     }),
@@ -29,6 +37,14 @@ export default defineSchema({
         category: v.string(),
         img: v.optional(v.string()),
         upvotes: v.optional(v.number()),
+        newUpvotes: v.optional(
+            v.array(
+                v.object({
+                    userId: v.string(),
+                    projectId: v.string()
+                })
+            )
+        ),
         published: v.boolean(),
         featured: v.optional(v.boolean()),
         views: v.optional(v.number())
