@@ -11,6 +11,7 @@ import { Id } from "@/convex/_generated/dataModel"
 import SubmitActionCard from "./submit-action-card"
 import SubmitDialog from "./submit-dialog"
 import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs"
+import { Skeleton } from "./ui/skeleton"
 
 interface ListProps {
     projects: Project[]
@@ -22,7 +23,28 @@ export default function CommunityList() {
     const updateViews = useMutation(api.portfolios.updateViews)
 
     if (!projects) {
-        return <div>Loading...</div>
+        return (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 py-8">
+                <Skeleton>
+                    <Image className="rounded-lg opacity-0" quality={1} src="/community/fuma.png" alt="skeleton" width={453} height={254} />
+                </Skeleton>
+                <Skeleton>
+                    <Image className="rounded-lg opacity-0" src="/community/fuma.png" alt="skeleton" width={453} height={254} />
+                </Skeleton>
+                <Skeleton>
+                    <Image className="rounded-lg opacity-0" quality={1} src="/community/fuma.png" alt="skeleton" width={453} height={254} />
+                </Skeleton>
+                <Skeleton className="hidden md:block">
+                    <Image className="rounded-lg opacity-0" quality={1} src="/community/fuma.png" alt="skeleton" width={453} height={254} />
+                </Skeleton>
+                <Skeleton className="hidden md:block">
+                    <Image className="rounded-lg opacity-0" quality={1} src="/community/fuma.png" alt="skeleton" width={453} height={254} />
+                </Skeleton>
+                <Skeleton className="hidden md:block">
+                    <Image className="rounded-lg opacity-0" quality={1} src="/community/fuma.png" alt="skeleton" width={453} height={254} />
+                </Skeleton>
+            </div>
+        )
     }
 
     return (
