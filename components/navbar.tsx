@@ -2,6 +2,7 @@ import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, SignIn, SignInButton } 
 import Link from "next/link"
 import { Button, buttonVariants } from "./ui/button"
 import Loader from "./loader"
+import { ModeSwitcher } from "./mode-switcher"
 
 export default function Navbar() {
     return (
@@ -18,9 +19,7 @@ export default function Navbar() {
                 </Link>
             </div>
             <div className="flex items-center justify-center gap-2">
-                <Link className="text-muted-foreground hover:text-primary transition-colors" href={"https://buymeacoffee.com/swajp"}>
-                    support me
-                </Link>
+                <ModeSwitcher />
                 <ClerkLoading>
                     <div className="flex w-[2.8rem] items-center justify-center">
                         <Loader />
