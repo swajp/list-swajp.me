@@ -6,6 +6,7 @@ import { ClerkProvider } from "@clerk/nextjs"
 import ConvexClientProvider from "@/components/convex-provider-clerk"
 import { Toaster } from "@/components/ui/sonner"
 import { ThemeProvider } from "@/components/theme-provider"
+import NewFeature from "@/components/new-feature"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -27,6 +28,7 @@ export default function RootLayout({
                 <body className={inter.className}>
                     <ThemeProvider attribute="class" defaultTheme="system" enableSystem storageKey="list-swajp-theme" disableTransitionOnChange>
                         {children}
+                        <NewFeature />
                         <Analytics />
                         <Toaster />
                     </ThemeProvider>
