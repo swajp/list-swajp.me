@@ -27,6 +27,7 @@
     "next": "14.2.5",
     "next-themes": "^0.3.0",
     "nodemailer": "^6.9.14",
+    "posthog-js": "^1.165.0",
     "react": "^18",
     "react-dom": "^18",
     "sonner": "^1.5.0",
