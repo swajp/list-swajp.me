@@ -5,6 +5,12 @@ export default function ChangelogPage() {
         <div className="h-full pb-8 pt-12">
             <h1 className="text-2xl font-medium">Changelog</h1>
             <div className="flex flex-col mt-8">
+                <h2 className="font-medium">v2.1</h2>
+                <ul className="text-sm list-disc pl-4 mt-2">
+                    <li>Replaced Vercel Analytics for Posthog</li>
+                </ul>
+            </div>
+            <div className="flex flex-col mt-8">
                 <h2 className="font-medium">v2.0</h2>
                 <ul className="text-sm list-disc pl-4 mt-2">
                     <li>Upvoting to projects & portfolios.</li>
