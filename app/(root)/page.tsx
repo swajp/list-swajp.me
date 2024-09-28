@@ -6,6 +6,8 @@ import Icon from "@/components/icon"
 import Hero from "@/components/hero"
 import List from "@/components/list"
 import Categories from "@/components/categories"
+import CommunityList from "@/components/community-list"
+import ProjectsList from "@/components/projects-list"
 
 export interface Category {
     name: string
@@ -47,6 +49,16 @@ export default function HomePage({ searchParams = {} }: { searchParams?: { categ
             <Hero />
             <Categories categories={categories} projects={projects} searchParams={searchParams} />
             <List projects={projects} categories={categories} searchParams={searchParams} />
+            <h1 className="text-3xl font-medium max-w-md">
+                View submitted portfolios from our{" "}
+                <Link href={"/community"} className="text-muted-foreground">
+                    community
+                </Link>
+                .
+            </h1>
+            <CommunityList />
+            <h1 className="text-3xl font-medium max-w-md">Projects submitted by our users 🚀</h1>
+            <ProjectsList />
         </div>
     )
 }
