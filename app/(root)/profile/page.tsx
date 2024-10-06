@@ -22,6 +22,20 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
 
+export function getStatus(published: boolean) {
+    return published ? (
+        <div className="flex gap-2 items-center">
+            <div className="bg-green-500 h-2 w-2 rounded-full" />
+            Published
+        </div>
+    ) : (
+        <div className="flex gap-2 items-center">
+            <div className="bg-orange-500 h-2 w-2 rounded-full" />
+            Pending
+        </div>
+    )
+}
+
 export default function ProfilePage() {
     const { user } = useUser()
 
@@ -84,20 +98,6 @@ export default function ProfilePage() {
     const mixedData = [...portfolios.map(p => ({ ...p, type: "portfolio" })), ...projects.map(p => ({ ...p, type: "project" }))]
 
     const sortedData = mixedData.sort((a, b) => new Date(b._creationTime).getTime() - new Date(a._creationTime).getTime())
-
-    function getStatus(published: boolean) {
-        return published ? (
-            <div className="flex gap-2 items-center">
-                <div className="bg-green-500 h-2 w-2 rounded-full" />
-                Published
-            </div>
-        ) : (
-            <div className="flex gap-2 items-center">
-                <div className="bg-orange-500 h-2 w-2 rounded-full" />
-                Pending
-            </div>
-        )
-    }
 
     return (
         <div className="h-screen flex flex-col lg:flex-row gap-4">
