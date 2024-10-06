@@ -7,16 +7,20 @@ import ProjectEdit from "./_components/project-edit"
 import PortfolioEdit from "./_components/portfolio-edit"
 
 export default function SubmitEditPage({ params }: { params: { type: string; id: string } }) {
-    const project = params.type === "project" ? (useQuery(api.projects.get, { projectId: params.id as Id<"projects"> }) as Doc<"projects">) : null
-    const portfolio = params.type === "portfolio" ? useQuery(api.portfolios.get, { portfolioId: params.id as Id<"portfolios"> }) : null
+    const project = useQuery(api.projects.get, { projectId: params.id as Id<"projects"> }) as Doc<"projects"> | null
+    const portfolio = useQuery(api.portfolios.get, { portfolioId: params.id as Id<"portfolios"> }) as Doc<"portfolios"> | null
+
+    const isProject = params.type === "project"
+    const isPortfolio = params.type === "portfolio"
 
     if (!project && !portfolio) {
         return <div>Loading...</div>
     }
+
     return (
         <div>
-            {project && <ProjectEdit {...project} />}
-            {portfolio && <PortfolioEdit {...portfolio} />}
+            {isProject && project && <ProjectEdit {...project} />}
+            {isPortfolio && portfolio && <PortfolioEdit {...portfolio} />}
         </div>
     )
 }
