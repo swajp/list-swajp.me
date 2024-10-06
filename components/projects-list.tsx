@@ -22,7 +22,9 @@ interface ListProps {
 const RATE_LIMIT_INTERVAL = 10000
 
 export default function ProjectsList() {
-    const projects = useQuery(api.projects.collection)
+    const projects = useQuery(api.projects.collection, {
+        published: true
+    })
 
     const [lastUpvoteTime, setLastUpvoteTime] = useState(0)
     const upvote = useMutation(api.projects.upvote)

@@ -22,7 +22,7 @@ interface ListProps {
 const RATE_LIMIT_INTERVAL = 10000
 
 export default function CommunityList() {
-    const projects = useQuery(api.portfolios.collection)
+    const projects = useQuery(api.portfolios.collection, { published: true })
 
     const [lastUpvoteTime, setLastUpvoteTime] = useState(0)
     const upvote = useMutation(api.portfolios.upvote)
