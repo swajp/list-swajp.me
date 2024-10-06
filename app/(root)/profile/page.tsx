@@ -22,22 +22,22 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
 
-export function getStatus(published: boolean) {
-    return published ? (
-        <div className="flex gap-2 items-center">
-            <div className="bg-green-500 h-2 w-2 rounded-full" />
-            Published
-        </div>
-    ) : (
-        <div className="flex gap-2 items-center">
-            <div className="bg-orange-500 h-2 w-2 rounded-full" />
-            Pending
-        </div>
-    )
-}
-
 export default function ProfilePage() {
     const { user } = useUser()
+
+    function getStatus(published: boolean) {
+        return published ? (
+            <div className="flex gap-2 items-center">
+                <div className="bg-green-500 h-2 w-2 rounded-full" />
+                Published
+            </div>
+        ) : (
+            <div className="flex gap-2 items-center">
+                <div className="bg-orange-500 h-2 w-2 rounded-full" />
+                Pending
+            </div>
+        )
+    }
 
     const currentUser = useQuery(api.users.get, {
         userId: user?.id!

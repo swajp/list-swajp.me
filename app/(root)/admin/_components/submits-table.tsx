@@ -5,7 +5,6 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { api } from "@/convex/_generated/api"
 import { useQuery } from "convex/react"
 import Link from "next/link"
-import { getStatus } from "../../profile/page"
 import {
     AlertDialog,
     AlertDialogAction,
@@ -22,6 +21,20 @@ import { EditIcon, TrashIcon } from "lucide-react"
 export default function SubmitsTable() {
     const projects = useQuery(api.projects.collection, { published: false })
     const portfolios = useQuery(api.portfolios.collection, { published: false })
+
+    function getStatus(published: boolean) {
+        return published ? (
+            <div className="flex gap-2 items-center">
+                <div className="bg-green-500 h-2 w-2 rounded-full" />
+                Published
+            </div>
+        ) : (
+            <div className="flex gap-2 items-center">
+                <div className="bg-orange-500 h-2 w-2 rounded-full" />
+                Pending
+            </div>
+        )
+    }
 
     if (!projects || !portfolios) {
         return <div>Loading...</div>
