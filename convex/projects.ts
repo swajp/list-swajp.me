@@ -34,14 +34,23 @@ export const create = mutation({
 })
 
 export const collection = query({
-    handler: async ctx => {
-        const projects = await ctx.db
-            .query("projects")
-            .filter(q => q.eq(q.field("published"), true))
-            .order("desc")
-            .collect()
+    args: {
+        published: v.boolean()
+    },
+    handler: async (ctx, args) => {
+        if (args.published) {
+            const projects = await ctx.db
+                .query("projects")
+                .filter(q => q.eq(q.field("published"), true))
+                .order("desc")
+                .collect()
 
-        return projects
+            return projects
+        } else {
+            const projects = await ctx.db.query("projects").order("desc").collect()
+
+            return projects
+        }
     }
 })
 
@@ -135,6 +144,65 @@ export const upvote = mutation({
 
         await ctx.db.patch(project._id, {
             newUpvotes: newUpvotes
+        })
+    }
+})
+
+export const get = query({
+    args: { projectId: v.id("projects") },
+    handler: async (ctx, args) => {
+        const project = await ctx.db
+            .query("projects")
+            .filter(q => q.eq(q.field("_id"), args.projectId))
+            .first()
+
+        if (!project) {
+            throw new Error("Project not found")
+        }
+
+        return project
+    }
+})
+
+export const edit = mutation({
+    args: {
+        projectId: v.id("projects"),
+        name: v.string(),
+        url: v.string(),
+        img: v.optional(v.string()),
+        description: v.string(),
+        category: v.string(),
+        published: v.boolean(),
+        featured: v.boolean()
+    },
+    handler: async (ctx, args) => {
+        const identity = await ctx.auth.getUserIdentity()
+
+        if (identity === null) {
+            throw new Error("No logged in user")
+        }
+
+        const project = await ctx.db
+            .query("projects")
+            .filter(q => q.eq(q.field("_id"), args.projectId))
+            .first()
+
+        if (!project) {
+            throw new Error("Project not found")
+        }
+
+        if (project.owner !== identity.subject) {
+            throw new Error("Unauthorized")
+        }
+
+        await ctx.db.patch(project._id, {
+            name: args.name,
+            url: args.url,
+            img: args.img ?? project.img,
+            description: args.description,
+            category: args.category,
+            published: args.published,
+            featured: args.featured
         })
     }
 })

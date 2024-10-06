@@ -29,14 +29,23 @@ export const create = mutation({
 })
 
 export const collection = query({
-    handler: async ctx => {
-        const portfolios = await ctx.db
-            .query("portfolios")
-            .filter(q => q.eq(q.field("published"), true))
-            .order("desc")
-            .collect()
+    args: {
+        published: v.boolean()
+    },
+    handler: async (ctx, args) => {
+        if (args.published) {
+            const portfolios = await ctx.db
+                .query("portfolios")
+                .filter(q => q.eq(q.field("published"), true))
+                .order("desc")
+                .collect()
 
-        return portfolios
+            return portfolios
+        } else {
+            const portfolios = await ctx.db.query("portfolios").order("desc").collect()
+
+            return portfolios
+        }
     }
 })
 
@@ -134,6 +143,90 @@ export const upvote = mutation({
 
         await ctx.db.patch(portfolio._id, {
             newUpvotes: newUpvotes
+        })
+    }
+})
+
+// ADMIN SECTION
+
+export const publish = mutation({
+    args: { portfolioId: v.id("portfolios") },
+    handler: async (ctx, args) => {
+        const identity = await ctx.auth.getUserIdentity()
+
+        if (identity === null) {
+            throw new Error("No logged in user")
+        }
+
+        const portfolio = await ctx.db
+            .query("portfolios")
+            .filter(q => q.eq(q.field("_id"), args.portfolioId))
+            .first()
+
+        if (!portfolio) {
+            throw new Error("Portfolio not found")
+        }
+
+        //tohlr fungovt nebude
+        if (portfolio.owner !== process.env.ADMIN_USER_ID) {
+            throw new Error("Unauthorized")
+        }
+
+        await ctx.db.patch(portfolio._id, {
+            published: true
+        })
+    }
+})
+
+export const get = query({
+    args: { portfolioId: v.id("portfolios") },
+    handler: async (ctx, args) => {
+        const portfolio = await ctx.db
+            .query("portfolios")
+            .filter(q => q.eq(q.field("_id"), args.portfolioId))
+            .first()
+
+        if (!portfolio) {
+            throw new Error("Project not found")
+        }
+
+        return portfolio
+    }
+})
+
+export const edit = mutation({
+    args: {
+        portfolioId: v.id("portfolios"),
+        name: v.string(),
+        url: v.string(),
+        published: v.boolean(),
+        img: v.optional(v.string())
+    },
+    handler: async (ctx, args) => {
+        const identity = await ctx.auth.getUserIdentity()
+
+        if (identity === null) {
+            throw new Error("No logged in user")
+        }
+
+        const portfolio = await ctx.db
+            .query("portfolios")
+            .filter(q => q.eq(q.field("_id"), args.portfolioId))
+            .first()
+
+        if (!portfolio) {
+            throw new Error("Portfolio not found")
+        }
+
+        if (portfolio.owner !== identity.subject) {
+            throw new Error("Unauthorized")
+        }
+
+        await ctx.db.patch(portfolio._id, {
+            name: args.name,
+            url: args.url,
+            published: args.published,
+            img: args.img ?? portfolio.img
         })
     }
 })
