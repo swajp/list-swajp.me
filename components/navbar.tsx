@@ -3,8 +3,15 @@ import Link from "next/link"
 import { Button, buttonVariants } from "./ui/button"
 import Loader from "./loader"
 import { ModeSwitcher } from "./mode-switcher"
+import { currentUser } from "@clerk/nextjs/server"
+import { SettingsIcon } from "lucide-react"
 
-export default function Navbar() {
+export default async function Navbar() {
+    const ADMIN_EMAIL = process.env.ADMIN_EMAIL
+
+    const user = await currentUser()
+
+    const isAdmin = user?.emailAddresses[0].emailAddress === ADMIN_EMAIL
     return (
         <nav className="h-20 flex justify-between">
             <div className="flex gap-4 items-center justify-center">
@@ -43,6 +50,18 @@ export default function Navbar() {
                         </Button>
                     </SignedOut>
                     <SignedIn>
+                        {isAdmin && (
+                            <Link
+                                href="/admin"
+                                className={buttonVariants({
+                                    className: "!rounded-full flex items-center justify-center",
+                                    size: "icon",
+                                    variant: "ghost"
+                                })}
+                            >
+                                <SettingsIcon className="size-6 text-muted-foreground" />
+                            </Link>
+                        )}
                         <Link
                             href="/profile"
                             className={buttonVariants({
