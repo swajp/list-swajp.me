@@ -33,19 +33,26 @@ export const collection = query({
         published: v.boolean()
     },
     handler: async (ctx, args) => {
-        if (args.published) {
-            const portfolios = await ctx.db
-                .query("portfolios")
-                .filter(q => q.eq(q.field("published"), true))
-                .order("desc")
-                .collect()
+        const portfolios = await ctx.db
+            .query("portfolios")
+            .filter(q => q.eq(q.field("published"), args.published))
+            .order("desc")
+            .collect()
 
-            return portfolios
-        } else {
-            const portfolios = await ctx.db.query("portfolios").order("desc").collect()
-
-            return portfolios
+        if (!portfolios || portfolios.length === 0) {
+            return []
         }
+
+        const users = await ctx.db.query("users").collect()
+
+        return portfolios.map(portfolio => {
+            const user = users.find(u => u.userId === portfolio.owner)
+
+            return {
+                ...portfolio,
+                user: user
+            }
+        })
     }
 })
 
@@ -130,8 +137,6 @@ export const upvote = mutation({
 
         const newUpvotes: { userId: string; portfolioId: string }[] = Array.isArray(portfolio.newUpvotes) ? portfolio.newUpvotes : []
         const userUpvoteIndex = newUpvotes.findIndex(newUpvote => newUpvote.userId === identity.subject)
-
-        console.log("userUpvoteIndex", userUpvoteIndex)
 
         if (userUpvoteIndex !== -1) {
             // User has already upvoted, so remove the upvote
