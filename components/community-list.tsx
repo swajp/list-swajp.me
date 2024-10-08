@@ -98,13 +98,18 @@ export default function CommunityList() {
                     {portfolio.user && (
                         <div className="absolute bottom-0 left-0 right-0  p-3">
                             <div className="!rounded-full text-xs gap-1.5 flex items-center font-medium h-7 px-2 bg-muted/70 w-fit ">
-                                <Image
-                                    src={portfolio.user.profileImg}
-                                    alt={portfolio.user.username}
-                                    width={20}
-                                    height={20}
-                                    className="rounded-full inline-block"
-                                />
+                                {portfolio.user.profileImg ? (
+                                    <Image
+                                        src={portfolio.user.profileImg}
+                                        alt={portfolio.user.username}
+                                        width={20}
+                                        height={20}
+                                        className="rounded-full inline-block"
+                                    />
+                                ) : (
+                                    <div className="rounded-full w-5 h-5 bg-primary/50"></div>
+                                )}
+
                                 {portfolio.user.username}
                             </div>
                         </div>
