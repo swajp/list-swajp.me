@@ -101,7 +101,7 @@ export default function ProfilePage() {
 
     return (
         <div className="h-screen flex flex-col lg:flex-row gap-4">
-            <Card className="h-fit">
+            <Card className="h-fit max-w-full lg:max-w-lg w-full">
                 <CardHeader>
                     <CardTitle>Overview</CardTitle>
                     <CardDescription>View your account details and activity.</CardDescription>
@@ -146,7 +146,7 @@ export default function ProfilePage() {
                     </SignOutButton>
                 </CardFooter>
             </Card>
-            <Card className="h-fit lg:max-w-2xl w-full">
+            <Card className="h-fit w-full">
                 <CardHeader>
                     <CardTitle>Requests ({mixedData.length})</CardTitle>
                     <CardDescription>View your portfolio requests. Pending requests will be reviewed within 24 hours.</CardDescription>

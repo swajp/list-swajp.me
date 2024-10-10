@@ -40,11 +40,28 @@ export const collection = query({
                 .order("desc")
                 .collect()
 
-            return portfolios
+            if (!portfolios || portfolios.length === 0) {
+                return []
+            }
+
+            const users = await ctx.db.query("users").collect()
+
+            return portfolios.map(portfolio => {
+                const user = users.find(u => u.userId === portfolio.owner)
+
+                return {
+                    ...portfolio,
+                    user: user
+                }
+            })
         } else {
             const portfolios = await ctx.db.query("portfolios").order("desc").collect()
 
-            return portfolios
+            //TO-DO: typescript walkaround - NEEDS TO BE FIXED
+            return portfolios.map(project => ({
+                ...project,
+                user: null
+            }))
         }
     }
 })
@@ -130,8 +147,6 @@ export const upvote = mutation({
 
         const newUpvotes: { userId: string; portfolioId: string }[] = Array.isArray(portfolio.newUpvotes) ? portfolio.newUpvotes : []
         const userUpvoteIndex = newUpvotes.findIndex(newUpvote => newUpvote.userId === identity.subject)
-
-        console.log("userUpvoteIndex", userUpvoteIndex)
 
         if (userUpvoteIndex !== -1) {
             // User has already upvoted, so remove the upvote
