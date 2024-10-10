@@ -28,7 +28,7 @@ export default function RootLayout({
                     <body className={inter.className}>
                         <ThemeProvider attribute="class" defaultTheme="system" enableSystem storageKey="list-swajp-theme" disableTransitionOnChange>
                             {children}
-                            <NewFeature />
+                            {/*<NewFeature />*/}
                             <Toaster />
                         </ThemeProvider>
                     </body>

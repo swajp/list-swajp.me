@@ -45,11 +45,28 @@ export const collection = query({
                 .order("desc")
                 .collect()
 
-            return projects
+            if (!projects || projects.length === 0) {
+                return []
+            }
+
+            const users = await ctx.db.query("users").collect()
+
+            return projects.map(project => {
+                const user = users.find(u => u.userId === project.owner)
+
+                return {
+                    ...project,
+                    user: user
+                }
+            })
         } else {
             const projects = await ctx.db.query("projects").order("desc").collect()
 
-            return projects
+            //TO-DO: typescript walkaround - NEEDS TO BE FIXED
+            return projects.map(project => ({
+                ...project,
+                user: null
+            }))
         }
     }
 })
