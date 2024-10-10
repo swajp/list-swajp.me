@@ -14,17 +14,16 @@ export default async function Navbar() {
     const isAdmin = user?.emailAddresses[0].emailAddress === ADMIN_EMAIL
     return (
         <nav className="h-20 flex items-center justify-center">
-            <div className="flex items-center justify-center border gap-8 p-2 px-4 bg-muted/30 rounded-full">
+            <div className="flex items-center justify-center border gap-3 md:gap-8 p-2 px-4 bg-muted/30 rounded-full">
                 <Link className="flex text-sm items-center" href={"/"}>
                     <div className="w-4 h-4 bg-primary/90 rounded-sm" />
-                    <span className="ml-2 font-bold text-primary/90">list</span>
+                    <span className="ml-2 font-bold text-primary/90 hidden md:block">list</span>
                 </Link>
                 <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                    <Link href={"/"}>Home</Link>
                     <Link href={"/community"}>Community</Link>
                     <Link href={"/projects"}>Projects</Link>
                 </div>
-                <div className="flex gap-2 items-center">
+                <div className="flex gap-1 md:gap-2 items-center">
                     <SignedOut>
                         <Button
                             className="!rounded-full bg-gradient-to-b from-secondary/30 to-primary h-8
