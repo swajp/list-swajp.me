@@ -13,7 +13,7 @@ import { SignedIn, SignedOut, SignInButton, useUser } from "@clerk/nextjs"
 import { Skeleton } from "./ui/skeleton"
 import { useState } from "react"
 import { toast } from "sonner"
-import { ArrowUp } from "lucide-react"
+import { ArrowUp, EyeIcon } from "lucide-react"
 
 interface ListProps {
     projects: Project[]
@@ -85,7 +85,7 @@ export default function ProjectsList() {
                     className="relative border rounded-lg"
                 >
                     <Image className="rounded-lg" quality={100} src={`/projects/${project.img!}`} alt={project.name} width={453} height={254} />
-                    <div className="absolute bottom-0 left-0 right-0  p-3">
+                    <div className="absolute top-0 left-0 right-0  p-3">
                         <div
                             className={buttonVariants({
                                 variant: "default",
@@ -95,43 +95,91 @@ export default function ProjectsList() {
                             {project.name}
                         </div>
                     </div>
+                    {project.user && (
+                        <div className="absolute bottom-0 left-0 right-0  p-3">
+                            <div
+                                onClick={e => {
+                                    e.preventDefault()
+                                    e.stopPropagation()
+                                }}
+                                className="!rounded-full select-none text-xs gap-1.5 flex items-center font-medium h-7 px-2 bg-muted/70 w-fit "
+                            >
+                                {project.user.profileImg ? (
+                                    <Image
+                                        src={project.user.profileImg}
+                                        alt={project.user.username}
+                                        width={20}
+                                        height={20}
+                                        className="rounded-full inline-block"
+                                    />
+                                ) : (
+                                    <div className="rounded-full w-5 h-5 bg-primary/50"></div>
+                                )}
+
+                                {project.user.username}
+                            </div>
+                        </div>
+                    )}
                     <SignedIn>
-                        <div className="absolute bottom-0 right-0  p-3">
+                        <div className="absolute bottom-0 right-0 flex gap-1.5 p-3">
                             {project.owner === user?.id ? (
-                                <div
-                                    onClick={e => {
-                                        e.preventDefault()
-                                        e.stopPropagation()
-                                    }}
-                                    className={buttonVariants({
-                                        variant: "secondary",
-                                        className: "!rounded-full text-xs border border-secondary/20 gap-0.5 h-7 !px-1.5"
-                                    })}
-                                >
-                                    <ArrowUp size={14} className="inline-block" />
-                                    {project.newUpvotes?.length ?? 0}
-                                </div>
+                                <>
+                                    <div
+                                        onClick={e => {
+                                            e.preventDefault()
+                                            e.stopPropagation()
+                                        }}
+                                        className={buttonVariants({
+                                            variant: "secondary",
+                                            className: "!rounded-full text-xs border border-secondary/20 gap-0.5 h-7 !px-1.5"
+                                        })}
+                                    >
+                                        <ArrowUp size={14} className="inline-block" />
+                                        {project.newUpvotes?.length ?? 0}
+                                    </div>
+                                    <div
+                                        className={buttonVariants({
+                                            variant: "secondary",
+                                            className: "!rounded-full text-xs border border-secondary/20 gap-0.5 h-7 !px-1.5"
+                                        })}
+                                    >
+                                        <EyeIcon size={14} className="inline-block" />
+                                    </div>
+                                </>
                             ) : (
-                                <div
-                                    onClick={e => {
-                                        e.preventDefault()
-                                        e.stopPropagation()
-                                        handleUpvote(project._id as Id<"projects">)
-                                    }}
-                                    className={buttonVariants({
-                                        variant: "secondary",
-                                        className: "!rounded-full text-xs border border-secondary/20 gap-0.5 h-7 !px-1.5"
-                                    })}
-                                >
-                                    <ArrowUp size={14} className="inline-block" />
-                                    {project.newUpvotes?.length ?? 0}
-                                </div>
+                                <>
+                                    <div
+                                        onClick={e => {
+                                            e.preventDefault()
+                                            e.stopPropagation()
+                                            handleUpvote(project._id as Id<"projects">)
+                                        }}
+                                        className={buttonVariants({
+                                            variant: "secondary",
+                                            className: "!rounded-full text-xs border border-secondary/20 gap-0.5 h-7 !px-1.5"
+                                        })}
+                                    >
+                                        <ArrowUp size={14} className="inline-block" />
+                                        {project.newUpvotes?.length ?? 0}
+                                    </div>
+                                    <div
+                                        onClick={() => {
+                                            updateViews({ projectId: project._id as Id<"projects"> })
+                                        }}
+                                        className={buttonVariants({
+                                            variant: "secondary",
+                                            className: "!rounded-full text-xs border border-secondary/20 gap-0.5 h-7 !px-1.5"
+                                        })}
+                                    >
+                                        <EyeIcon size={14} className="inline-block" />
+                                    </div>
+                                </>
                             )}
                         </div>
                     </SignedIn>
                     <SignedOut>
-                        <SignInButton mode="modal">
-                            <div className="absolute bottom-0 right-0  p-3">
+                        <div className="absolute bottom-0 right-0 flex gap-1.5 p-3">
+                            <SignInButton mode="modal">
                                 <div
                                     onClick={e => {
                                         e.preventDefault()
@@ -144,8 +192,19 @@ export default function ProjectsList() {
                                     <ArrowUp size={14} className="inline-block" />
                                     {project.newUpvotes?.length ?? 0}
                                 </div>
+                            </SignInButton>
+                            <div
+                                onClick={() => {
+                                    updateViews({ projectId: project._id as Id<"projects"> })
+                                }}
+                                className={buttonVariants({
+                                    variant: "secondary",
+                                    className: "!rounded-full text-xs border border-secondary/20 gap-0.5 h-7 !px-1.5"
+                                })}
+                            >
+                                <EyeIcon size={14} className="inline-block" />
                             </div>
-                        </SignInButton>
+                        </div>
                     </SignedOut>
                 </Link>
             ))}
