@@ -33,26 +33,36 @@ export const collection = query({
         published: v.boolean()
     },
     handler: async (ctx, args) => {
-        const portfolios = await ctx.db
-            .query("portfolios")
-            .filter(q => q.eq(q.field("published"), args.published))
-            .order("desc")
-            .collect()
+        if (args.published) {
+            const portfolios = await ctx.db
+                .query("portfolios")
+                .filter(q => q.eq(q.field("published"), true))
+                .order("desc")
+                .collect()
 
-        if (!portfolios || portfolios.length === 0) {
-            return []
-        }
-
-        const users = await ctx.db.query("users").collect()
-
-        return portfolios.map(portfolio => {
-            const user = users.find(u => u.userId === portfolio.owner)
-
-            return {
-                ...portfolio,
-                user: user
+            if (!portfolios || portfolios.length === 0) {
+                return []
             }
-        })
+
+            const users = await ctx.db.query("users").collect()
+
+            return portfolios.map(portfolio => {
+                const user = users.find(u => u.userId === portfolio.owner)
+
+                return {
+                    ...portfolio,
+                    user: user
+                }
+            })
+        } else {
+            const portfolios = await ctx.db.query("portfolios").order("desc").collect()
+
+            //TO-DO: typescript walkaround - NEEDS TO BE FIXED
+            return portfolios.map(project => ({
+                ...project,
+                user: null
+            }))
+        }
     }
 })
 
