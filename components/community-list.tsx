@@ -97,7 +97,13 @@ export default function CommunityList() {
                     </div>
                     {portfolio.user && (
                         <div className="absolute bottom-0 left-0 right-0  p-3">
-                            <div className="!rounded-full text-xs gap-1.5 flex items-center font-medium h-7 px-2 bg-muted/70 w-fit ">
+                            <div
+                                onClick={e => {
+                                    e.preventDefault()
+                                    e.stopPropagation()
+                                }}
+                                className="!rounded-full select-none text-xs gap-1.5 flex items-center font-medium h-7 px-2 bg-muted/70 w-fit "
+                            >
                                 {portfolio.user.profileImg ? (
                                     <Image
                                         src={portfolio.user.profileImg}
@@ -132,9 +138,6 @@ export default function CommunityList() {
                                         {portfolio.newUpvotes?.length ?? 0}
                                     </div>
                                     <div
-                                        onClick={() => {
-                                            updateViews({ portfolioId: portfolio._id as Id<"portfolios"> })
-                                        }}
                                         className={buttonVariants({
                                             variant: "secondary",
                                             className: "!rounded-full text-xs border border-secondary/20 gap-0.5 h-7 !px-1.5"
