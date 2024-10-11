@@ -83,7 +83,14 @@ export default function CommunityList() {
                     key={portfolio.name}
                     className="relative border rounded-lg"
                 >
-                    <Image className="rounded-lg" quality={100} src={`/community/${portfolio.img!}`} alt={portfolio.name} width={453} height={254} />
+                    <Image
+                        className="rounded-lg"
+                        quality={100}
+                        src={portfolio.img?.startsWith("https") ? portfolio.img : `/community/${portfolio.img}`}
+                        alt={portfolio.name}
+                        width={453}
+                        height={254}
+                    />
 
                     <div className="absolute top-0 left-0 right-0  p-3">
                         <div
