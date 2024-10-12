@@ -1,34 +1,65 @@
+"use client"
+
+import { useEffect, useState } from "react"
 import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, SignIn, SignInButton } from "@clerk/nextjs"
 import Link from "next/link"
 import { Button, buttonVariants } from "./ui/button"
-import Loader from "./loader"
 import { ModeSwitcher } from "./mode-switcher"
 import { currentUser } from "@clerk/nextjs/server"
 import { SettingsIcon } from "lucide-react"
+import Image from "next/image"
+import SubmitButton from "./submit-button"
 
-export default async function Navbar() {
-    const ADMIN_EMAIL = process.env.ADMIN_EMAIL
+export default function Navbar() {
+    // Track scroll direction
+    const [showLinks, setShowLinks] = useState(true)
+    let lastScrollY = 0
 
-    const user = await currentUser()
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > lastScrollY) {
+                // Scrolling down
+                setShowLinks(false)
+            } else {
+                // Scrolling up
+                setShowLinks(true)
+            }
+            lastScrollY = window.scrollY
+        }
 
-    const isAdmin = user?.emailAddresses[0].emailAddress === ADMIN_EMAIL
+        window.addEventListener("scroll", handleScroll)
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll)
+        }
+    }, [])
+
     return (
-        <nav className="h-20 flex items-center justify-center">
-            <div className="flex items-center justify-center border gap-3 md:gap-8 p-2 px-4 bg-muted/30 rounded-full">
+        <nav className="h-20 fixed top-0 left-0 right-0 flex items-center z-50 justify-center">
+            <div
+                className={`flex items-center justify-center gap-3 p-2 px-4 bg-muted/70 backdrop-blur-sm transition-all duration-300 rounded-full ${
+                    showLinks ? "max-w-[470px] w-full md:gap-8" : "max-w-[280px] w-full md:gap-2"
+                }`}
+            >
+                {/* Logo */}
                 <Link className="flex text-sm items-center" href={"/"}>
-                    <div className="w-4 h-4 bg-primary/90 rounded-sm" />
-                    <span className="ml-2 font-bold text-primary/90 hidden md:block">list</span>
+                    <Image width={32} height={32} src="/list-logo.png" alt="Logo" />
                 </Link>
-                <div className="flex items-center gap-3 text-sm text-muted-foreground">
+
+                {/* Links with conditional rendering based on scroll direction */}
+                <div
+                    className={`flex items-center gap-3 text-sm text-muted-foreground transition-all duration-300 ${
+                        showLinks ? "opacity-100 max-w-full" : "opacity-0 max-w-0 overflow-hidden"
+                    }`}
+                >
                     <Link href={"/community"}>Community</Link>
                     <Link href={"/projects"}>Projects</Link>
                 </div>
+
+                {/* Profile and ModeSwitcher */}
                 <div className="flex gap-1 md:gap-2 items-center">
                     <SignedOut>
-                        <Button
-                            className="!rounded-full bg-gradient-to-b from-secondary/30 to-primary h-8
-                            "
-                        >
+                        <Button className="!rounded-full bg-gradient-to-b from-secondary/30 to-primary h-8">
                             <SignInButton mode="modal">My profile</SignInButton>
                         </Button>
                     </SignedOut>
@@ -43,6 +74,7 @@ export default async function Navbar() {
                         </Link>
                     </SignedIn>
                     <ModeSwitcher />
+                    <SubmitButton />
                 </div>
             </div>
         </nav>
