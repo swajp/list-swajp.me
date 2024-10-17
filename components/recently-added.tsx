@@ -17,6 +17,8 @@ export default function RecentlyAdded() {
     const updateViewsProject = useMutation(api.projects.updateViews)
     const updateViewsPortfolio = useMutation(api.portfolios.updateViews)
 
+    const { user } = useUser()
+
     if (!projects || !portfolios) {
         return (
             <Skeleton>
@@ -24,8 +26,6 @@ export default function RecentlyAdded() {
             </Skeleton>
         )
     }
-
-    const { user } = useUser()
 
     const handleUpdateViews = async (projectId: string) => {
         if (sortedData[0].type === "portfolio") {
