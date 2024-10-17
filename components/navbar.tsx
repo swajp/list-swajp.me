@@ -1,27 +1,22 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, SignIn, SignInButton } from "@clerk/nextjs"
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs"
 import Link from "next/link"
 import { Button, buttonVariants } from "./ui/button"
 import { ModeSwitcher } from "./mode-switcher"
-import { currentUser } from "@clerk/nextjs/server"
-import { SettingsIcon } from "lucide-react"
 import Image from "next/image"
 import SubmitButton from "./submit-button"
 
 export default function Navbar() {
-    // Track scroll direction
     const [showLinks, setShowLinks] = useState(true)
     let lastScrollY = 0
 
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY > lastScrollY) {
-                // Scrolling down
                 setShowLinks(false)
             } else {
-                // Scrolling up
                 setShowLinks(true)
             }
             lastScrollY = window.scrollY
@@ -41,12 +36,9 @@ export default function Navbar() {
                     showLinks ? "max-w-[470px] w-full md:gap-8" : "max-w-[280px] w-full md:gap-2"
                 }`}
             >
-                {/* Logo */}
                 <Link className="flex text-sm items-center" href={"/"}>
                     <Image width={32} height={32} src="/list-logo.png" alt="Logo" />
                 </Link>
-
-                {/* Links with conditional rendering based on scroll direction */}
                 <div
                     className={`flex items-center gap-3 text-sm text-muted-foreground transition-all duration-300 ${
                         showLinks ? "opacity-100 max-w-full" : "opacity-0 max-w-0 overflow-hidden"
@@ -55,8 +47,6 @@ export default function Navbar() {
                     <Link href={"/community"}>Community</Link>
                     <Link href={"/projects"}>Projects</Link>
                 </div>
-
-                {/* Profile and ModeSwitcher */}
                 <div className="flex gap-1 md:gap-2 items-center">
                     <SignedOut>
                         <Button className="!rounded-full bg-gradient-to-b from-secondary/30 to-primary h-8">
