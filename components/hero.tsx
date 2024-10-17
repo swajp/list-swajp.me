@@ -1,11 +1,12 @@
 import Link from "next/link"
 import { buttonVariants } from "./ui/button"
 import { StarIcon } from "lucide-react"
+import RecentlyAdded from "./recently-added"
 
 export default function Hero() {
     return (
-        <>
-            <div className="flex flex-col gap-4 pt-12 pb-8 max-w-lg">
+        <div className="flex flex-col lg:flex-row justify-between gap-12 lg:items-center pt-24 pb-8">
+            <div className="flex flex-col gap-4 max-w-lg">
                 <h1 className="text-3xl font-medium">
                     It has never been easier to find the right projects or designs by inspiring successful people.
                 </h1>
@@ -33,6 +34,7 @@ export default function Hero() {
                     </Link>
                 </div>
             </div>
-        </>
+            <RecentlyAdded />
+        </div>
     )
 }
