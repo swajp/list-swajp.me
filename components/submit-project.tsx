@@ -8,7 +8,7 @@ import { Label } from "./ui/label"
 import { Input } from "./ui/input"
 import React from "react"
 import { useUser } from "@clerk/nextjs"
-import { portfolioSubmited } from "@/lib/actions"
+import { informUserMail, portfolioSubmited } from "@/lib/actions"
 import { toast } from "sonner"
 import Image from "next/image"
 import Link from "next/link"
@@ -63,6 +63,7 @@ export default function SubmitProject({ children }: { children: React.ReactNode 
             category
         })
             .then(() => portfolioSubmited(user?.emailAddresses[0].emailAddress!, name, url))
+            .then(() => informUserMail(user?.emailAddresses[0].emailAddress!, "Project"))
             .then(() => {
                 setSubmited(true)
                 setName(null)
@@ -93,8 +94,7 @@ export default function SubmitProject({ children }: { children: React.ReactNode 
                         <div className="text-center">
                             <DialogTitle className="text-xl font-medium mt-2">Submit my project</DialogTitle>
                             <DialogDescription>
-                                Get more users by submitting your project to the community. We will review it and
-                                publish it.
+                                Get more users by submitting your project to the community. We will review it and publish it.
                             </DialogDescription>
                         </div>
                         <form action={handleSubmit}>
@@ -127,8 +127,7 @@ export default function SubmitProject({ children }: { children: React.ReactNode 
                                     <div>
                                         <Label>Description</Label>
                                         <p className="text-xs text-muted-foreground mb-1">
-                                            Describe your project in a few words. What does it do? What is it for? What
-                                            makes it special?
+                                            Describe your project in a few words. What does it do? What is it for? What makes it special?
                                         </p>
 
                                         <Input
@@ -141,9 +140,7 @@ export default function SubmitProject({ children }: { children: React.ReactNode 
                                     </div>
                                     <div>
                                         <Label>Category</Label>
-                                        <p className="text-xs text-muted-foreground mb-1">
-                                            Which category does your project belong to?
-                                        </p>
+                                        <p className="text-xs text-muted-foreground mb-1">Which category does your project belong to?</p>
 
                                         <Input
                                             value={category || ""}
@@ -164,22 +161,12 @@ export default function SubmitProject({ children }: { children: React.ReactNode 
                     </>
                 ) : (
                     <div>
-                        <Image
-                            src={"/submited.gif"}
-                            alt="submited"
-                            width={504}
-                            height={304}
-                            className="rounded-xl border my-4"
-                        />
+                        <Image src={"/submited.gif"} alt="submited" width={504} height={304} className="rounded-xl border my-4" />
                         <div className="text-center">
                             <DialogTitle className="text-xl font-medium mt-2">Project submitted</DialogTitle>
                             <DialogDescription>
-                                Your project has been submitted. We will review it and publish it. Meanwhile, you can
-                                give us a{" "}
-                                <Link
-                                    className="text-primary underline"
-                                    href={"https://github.com/swajp/list-swajp.me"}
-                                >
+                                Your project has been submitted. We will review it and publish it. Meanwhile, you can give us a{" "}
+                                <Link className="text-primary underline" href={"https://github.com/swajp/list-swajp.me"}>
                                     star
                                 </Link>
                             </DialogDescription>

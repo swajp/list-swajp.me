@@ -1,11 +1,17 @@
-import { Box, PanelsTopLeft, Plus } from "lucide-react"
+import { Box, PanelsTopLeft, Plus, TerminalSquare } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import SubmitProject from "./submit-project"
 import SubmitDialog from "./submit-dialog"
+import { useUser } from "@clerk/nextjs"
+import Link from "next/link"
 
 export default function SubmitButton() {
+    const { user } = useUser()
+
+    const isAdmin = user?.emailAddresses[0].emailAddress === "me@swajp.me"
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -31,6 +37,14 @@ export default function SubmitButton() {
                             </div>
                         </DropdownMenuItem>
                     </SubmitProject>
+                    {isAdmin && (
+                        <DropdownMenuItem>
+                            <Link href={"/admin"} className="flex">
+                                <TerminalSquare className="mr-2 h-4 w-4" />
+                                <span>Admin panel</span>
+                            </Link>
+                        </DropdownMenuItem>
+                    )}
                 </DropdownMenuGroup>
             </DropdownMenuContent>
         </DropdownMenu>

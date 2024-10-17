@@ -9,7 +9,7 @@ import { Input } from "./ui/input"
 import React from "react"
 import { useUser } from "@clerk/nextjs"
 import { DialogTitle } from "@radix-ui/react-dialog"
-import { portfolioSubmited } from "@/lib/actions"
+import { informUserMail, portfolioSubmited } from "@/lib/actions"
 import { toast } from "sonner"
 import Image from "next/image"
 import Link from "next/link"
@@ -57,6 +57,7 @@ export default function SubmitDialog({ children }: { children: React.ReactNode }
 
         const promise = create({ name, url })
             .then(() => portfolioSubmited(user?.emailAddresses[0].emailAddress!, name, url))
+            .then(() => informUserMail(user?.emailAddresses[0].emailAddress!, "Portfolio"))
             .then(() => {
                 setSubmited(true)
                 setName(null)
@@ -85,8 +86,7 @@ export default function SubmitDialog({ children }: { children: React.ReactNode }
                         <div className="text-center">
                             <DialogTitle className="text-xl font-medium mt-2">Submit my portfolio</DialogTitle>
                             <DialogDescription>
-                                Get more visitors to your portfolio by submitting it to our community. We will review it
-                                and publish it.
+                                Get more visitors to your portfolio by submitting it to our community. We will review it and publish it.
                             </DialogDescription>
                         </div>
                         <form action={handleSubmit}>
@@ -127,22 +127,12 @@ export default function SubmitDialog({ children }: { children: React.ReactNode }
                     </>
                 ) : (
                     <div>
-                        <Image
-                            src={"/submited.gif"}
-                            alt="submited"
-                            width={504}
-                            height={304}
-                            className="rounded-xl border my-4"
-                        />
+                        <Image src={"/submited.gif"} alt="submited" width={504} height={304} className="rounded-xl border my-4" />
                         <div className="text-center">
                             <DialogTitle className="text-xl font-medium mt-2">Portfolio submitted</DialogTitle>
                             <DialogDescription>
-                                Your portfolio has been submitted. We will review it and publish it. Meanwhile, you can
-                                give us a{" "}
-                                <Link
-                                    className="text-primary underline"
-                                    href={"https://github.com/swajp/list-swajp.me"}
-                                >
+                                Your portfolio has been submitted. We will review it and publish it. Meanwhile, you can give us a{" "}
+                                <Link className="text-primary underline" href={"https://github.com/swajp/list-swajp.me"}>
                                     star
                                 </Link>
                             </DialogDescription>

@@ -6,12 +6,15 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { api } from "@/convex/_generated/api"
 import { Doc, Id } from "@/convex/_generated/dataModel"
-import { useMutation } from "convex/react"
+import { informOwnerPublished } from "@/lib/actions"
+import { useMutation, useQuery } from "convex/react"
 import { useState } from "react"
 import { toast } from "sonner"
 
 export default function ProjectEdit(project: Doc<"projects">) {
     const update = useMutation(api.projects.edit)
+
+    const owner = useQuery(api.users.get, { userId: project.owner }) as Doc<"users">
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -57,6 +60,10 @@ export default function ProjectEdit(project: Doc<"projects">) {
                 success: "Successfully edited!",
                 error: "Failed while editing..."
             })
+
+            if (formData.published) {
+                await informOwnerPublished(owner.email, "Project")
+            }
         } catch (error) {
             console.error("Editing failed:", error)
         } finally {
