@@ -77,3 +77,43 @@ export async function portfolioSubmited(email: string, name: string, url: string
         console.log(e)
     }
 }
+
+export async function informUserMail(email: string, type: string) {
+    try {
+        await transporter.sendMail({
+            from: '"sender@swajp.me" <sender@swajp.me>',
+            to: email,
+            subject: `Thank you for submitting your ${type}`,
+            html: `
+            <h2>
+                Your ${type} has been submitted successfully
+            </h2>       
+            <p>
+                We will review it and publish it. Meanwhile, you can join our <a href="https://discord.gg/wbnZU3vTMb">discord</a> or star our github <a href="https://github.com/swajp/list-swajp.me">repo</a>.
+            </p>
+      `
+        })
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export async function informOwnerPublished(email: string, type: string) {
+    try {
+        await transporter.sendMail({
+            from: '"sender@swajp.me" <sender@swajp.me>',
+            to: email,
+            subject: `Your ${type} has been published`,
+            html: `
+            <h2>
+                Your ${type} has been published
+            </h2>
+            <p>
+                You can view it on your <a href="https://list.swajp.me/profile">profile</.
+            </p>
+        `
+        })
+    } catch (e) {
+        console.log(e)
+    }
+}

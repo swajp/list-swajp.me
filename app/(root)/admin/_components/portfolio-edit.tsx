@@ -5,12 +5,15 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { api } from "@/convex/_generated/api"
 import { Doc, Id } from "@/convex/_generated/dataModel"
-import { useMutation } from "convex/react"
+import { informOwnerPublished } from "@/lib/actions"
+import { useMutation, useQuery } from "convex/react"
 import { useState } from "react"
 import { toast } from "sonner"
 
 export default function PortfolioEdit(portfolio: Doc<"portfolios">) {
     const update = useMutation(api.portfolios.edit)
+
+    const owner = useQuery(api.users.get, { userId: portfolio.owner }) as Doc<"users">
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -53,6 +56,10 @@ export default function PortfolioEdit(portfolio: Doc<"portfolios">) {
                 success: "Successfully edited!",
                 error: "Failed while editing..."
             })
+
+            if (formData.published) {
+                await informOwnerPublished(owner.email, "Porfolio")
+            }
         } catch (error) {
             console.error("Editing failed:", error)
         } finally {
