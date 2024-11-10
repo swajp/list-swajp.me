@@ -30,7 +30,7 @@ export default function ProjectsList() {
     const [lastUpvoteTime, setLastUpvoteTime] = useState(0)
     const upvote = useMutation(api.projects.upvote)
 
-    const [sortOption, setSortOption] = useState("views")
+    const [sortOption, setSortOption] = useState("newest")
 
     const updateViews = useMutation(api.projects.updateViews)
 
@@ -98,12 +98,12 @@ export default function ProjectsList() {
                 <Select onValueChange={value => setSortOption(value)}>
                     <SelectTrigger className="w-fit">
                         <AlignLeftIcon size={16} className="inline-block mr-2" />
-                        <SelectValue placeholder="Views" />
+                        <SelectValue placeholder="Newest" />
                     </SelectTrigger>
                     <SelectContent>
                         <SelectGroup>
-                            <SelectItem value="views">Views</SelectItem>
                             <SelectItem value="newest">Newest</SelectItem>
+                            <SelectItem value="views">Views</SelectItem>
                             <SelectItem value="oldest">Oldest</SelectItem>
                             <SelectItem value="mostUpvoted">Most upvoted</SelectItem>
                             <SelectItem value="leastUpvoted">Least upvoted</SelectItem>
@@ -208,9 +208,6 @@ export default function ProjectsList() {
                                             {project.newUpvotes?.length ?? 0}
                                         </div>
                                         <div
-                                            onClick={() => {
-                                                updateViews({ projectId: project._id as Id<"projects"> })
-                                            }}
                                             className={buttonVariants({
                                                 variant: "secondary",
                                                 className: "!rounded-full text-xs border border-secondary/20 gap-0.5 h-7 !px-1.5"
@@ -239,9 +236,6 @@ export default function ProjectsList() {
                                     </div>
                                 </SignInButton>
                                 <div
-                                    onClick={() => {
-                                        updateViews({ projectId: project._id as Id<"projects"> })
-                                    }}
                                     className={buttonVariants({
                                         variant: "secondary",
                                         className: "!rounded-full text-xs border border-secondary/20 gap-0.5 h-7 !px-1.5"
