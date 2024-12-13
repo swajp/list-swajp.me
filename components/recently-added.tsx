@@ -46,12 +46,12 @@ export default function RecentlyAdded() {
             target="_blank"
             href={project.url}
             key={project.name}
-            className="relative border w-fit rounded-tl-none rounded-lg"
+            className="relative border w-fit rounded-lg"
         >
-            <div className="absolute -top-7 left-2 border border-b-0 text-xs bg-secondary px-3 py-1.5 rounded-t-lg">Recently added</div>
-
+            <div className="absolute -top-7 left-5 border border-b-0 text-xs bg-secondary px-3 py-1.5 rounded-t-lg">Recently added</div>
+            <Image src={"/santa-hat.webp"} alt="Santa hat" width={38} height={38} className="absolute -top-5 z-10 -left-4 rotate-[14deg]" />
             <Image
-                className="rounded-lg"
+                className="rounded-lg relative"
                 quality={100}
                 src={project.img?.startsWith("https") ? project.img : `/projects/${project.img}`}
                 alt={project.name}
