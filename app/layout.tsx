@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/sonner"
 import { ThemeProvider } from "@/components/theme-provider"
 import NewFeature from "@/components/new-feature"
 import { CSPostHogProvider } from "@/components/posthog-provider"
+import SnowfallClient from "@/components/snowfall-client"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -27,6 +28,7 @@ export default function RootLayout({
                 <CSPostHogProvider>
                     <body className={inter.className}>
                         <ThemeProvider attribute="class" defaultTheme="system" enableSystem storageKey="list-swajp-theme" disableTransitionOnChange>
+                            <SnowfallClient />
                             {children}
                             {/*<NewFeature />*/}
                             <Toaster />
